@@ -22,9 +22,7 @@ Features:
 
 ### routes
 
-- home => / => Login.js
-- profile => /profile => Profile.js
-- killMap => /kill_map => KillMap.js
+
 
 ### file-structure
 
