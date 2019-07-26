@@ -58,7 +58,7 @@ create table users(
     password text not null,
     email text not null,
     profile_picture text default 'https://cdn.pixabay.com/photo/2013/11/01/11/13/dolphin-203875_1280.jpg',
-    biography text,
+    biography text
 );
 ```
 
