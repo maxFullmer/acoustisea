@@ -66,7 +66,7 @@ create table users(
 
 ```sql
 create table dataDescription(
-    data_id serial primary key
+    data_id serial primary key,
     isPrivate boolean,
     marineBio boolean,
     construction boolean,
