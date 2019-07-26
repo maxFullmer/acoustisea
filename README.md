@@ -28,28 +28,6 @@ Features:
 
 ### file-structure
 
-- src/
-    - components/
-        - Profile/
-            - Profile.js
-            - Profile.css / .scss
-        - killMap/
-            - KillMap.js
-            - KillMap.css / .scss
-        - Home/
-            - Login.js
-            - Login.css / .scss
-    - App.js
-    - App.css
-    - index.js
-    - setupProxy.js
-    
-    - reset.css
-    - redux
-        - store.js
-        - reducer.js
-
-
 ## server
 
 ### dependencies
@@ -60,29 +38,16 @@ Features:
 - bcrypt
 
 ### server file structure
-- server/
-    - index.js
-    - middlewares
-        - middleware.js
-    - controller
-        - killCountController.js
-        - authController.js
+
 
 ### endpoints
 
 **auth**
 
-- login: => /api/login
-- register: => /api/register
-- logout: => /api/logout
-- userSession: => /api/user_session
+
 
 **kill Count Endpoints**
 
-- getAllUsers: => /api/users
-- killUser: => /api/kill_User
-- updateDistance: => /api/distance
-- deleteUser: => /api/obliterate
 
 ## database
 
@@ -108,7 +73,7 @@ create table profile(
 );
 ```
 
-- data visibilty
+- data by subtopic (Marine Bioacoustics, Off/nearshore Construction, Vechicles, Environmental)
 
 ```sql
 create table subtopic(
