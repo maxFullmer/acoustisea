@@ -49,32 +49,30 @@ Features:
 
 ## database
 
-- users
+- user object
 
 ```sql
 create table users(
     user_id serial primary key,
     username text not null,
     password text not null,
-    email text not null
-);
-```
-
-- user info
-
-```sql
-create table profile(
-    profile_id serial primary key,
-    picture text default 'https://cdn.pixabay.com/photo/2013/11/01/11/13/dolphin-203875_1280.jpg',
-    user_id integer references users(user_id)
+    email text not null,
+    profile_picture text default 'https://cdn.pixabay.com/photo/2013/11/01/11/13/dolphin-203875_1280.jpg',
     biography text,
 );
 ```
 
-- data by subtopic (Marine Bioacoustics, Off/nearshore Construction, Vechicles, Environmental)
+- Acoustic Data object
 
 ```sql
-create table subtopic(
-    
+create table dataDescription(
+    data_id serial primary key
+    isPrivate boolean,
+    marineBio boolean,
+    construction boolean,
+    vehicle boolean,
+    environmental boolean,
+    author references user(username),
+    author_id references user(user_id)
 )
 ```
