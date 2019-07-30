@@ -3,12 +3,13 @@
 ### Acoustisea is a GitHub like responsive web app for underwater acoustic data files. 
 
 ## Features:  
-- Users can post underwater acoustic data.
+- Users can upload underwater acoustic data on their own page.
 - Users can update profile info and descriptions of their underwater acoustic data.
 - Users can delete their own underwater acoustic data.
-- Anyone can view underwater acoustic data by subtopic. (Users themselves would tag what subtopic their data falls under when uploading.)
-- Anyone can view a user profile page and underwater acoustic data posted by that user.
-- Only users can download posted underwater acoustic data.
+- Users can be routed to subtopic page to view acoustic data associated with that subtopic. (Users themselves would tag what subtopic their data falls under when uploading.)
+- User can be routed to another user's profile/data page from the associated acoustic data displayed in subtopic pages.
+- Users can download posted underwater acoustic data.
+- Must be logged in to download file.
 
 ## Front End
 
@@ -25,32 +26,31 @@
 ### Routes
 
 - / => (Home/Login)
-- /marinebioacoustics
-- /marinebioacoustics/:data_id
-- /vesselsandvehicles
-- /vesselsandvehicles/:data_id
-- /environmental
-- /environmental/:data_id
-- /construction
-- /construction/:data_id
 - /user/:user_id
-- /allusers
+- /marinebioacoustics
+- /vesselsandvehicles
+- /construction
+- /environmental
+- \* 404: page not found
+
 
 
 ### File structure
 
 - /src
     - /Components
-        - Header.js
-        - Header.scss
-        - LoginRegister.js
-        - LoginRegister.scss
-        - Logout.js
-        - Logout.scss
-        - UserProfile.js
-        - UserProfile.scss
-        - PublicData.js
-        - PublicData.scss
+        - /Header
+            - Header.js
+            - Header.scss
+        - /Authentication
+            - Authentication.js
+            - Authentication.scss
+        - /UserProfile
+            - UserProfile.js
+            - UserProfile.scss
+        - /PublicData
+            - PublicData.js
+            - PublicData.scss
     - /redux
         - store.js
         - reducer.js
@@ -58,7 +58,7 @@
     - App.js
     - App.test.js
     - index.js
-    - reset.css
+    - index.css (reset.css)
     - setupProxy.js
 
     
