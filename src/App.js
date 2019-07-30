@@ -1,24 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {Switch, Route, Link} from 'react-router-dom';
+
+import Header from './Components/Header/Header.js';
+import Authentication from './Components/Authentication/Authentication.js';
+import UserProfile from './Components/UserProfile/UserProfile.js';
+import PublicData from './Components/PublicData/PublicData.js';
+
+import './App.scss';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header />
+      <Switch>
+        <Route exact path="/" component={Authentication}/>
+        <Route path="/user/:user_id" component={UserProfile} />
+          <Route path="/marinebioacoustics" component={PublicData}/>
+          <Route path="/vesselsandvehicles" component={PublicData}/>
+          <Route path="/construction" component={PublicData}/>
+          <Route path="/environmental" component={PublicData}/>
+        <Route path="*" render={() => {return <div>404: Page not found. You may have made a syntactical error. Please check spelling of URL.</div>}}/>
+      </Switch>
     </div>
   );
 }
