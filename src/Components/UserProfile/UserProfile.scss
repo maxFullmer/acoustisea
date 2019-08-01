@@ -1,0 +1,34 @@
+@import '../../variables.scss';
+
+nav {
+    width: 50%;
+    
+}
+.nav-grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 100%;
+    width: 100%;
+    background: $silver;
+
+    a .marbio {
+        @extend %nav-text-color;
+        background: $blue;
+    }
+
+    a .vv {
+        @extend %nav-text-color;
+        background: $blue;
+    }
+
+    a .constrc {
+        @extend %nav-text-color;
+        background: $blue;
+    }
+
+    a .environ {
+        @extend %nav-text-color;
+        background: $blue;
+    }
+}

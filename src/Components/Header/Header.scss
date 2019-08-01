@@ -1,0 +1,16 @@
+@import '../../variables.scss';
+
+header {
+    background: $gold;    
+    height: 5%; 
+    width: 100%;
+    padding: 4%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    button {
+        @include file-button;
+        margin: 4%;
+    }
+}
