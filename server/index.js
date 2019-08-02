@@ -33,7 +33,7 @@ app.get('/api/user_session', authCtrl.userSession);
 
 //data info endpoints
 app.get('/api/user_data/:user_id', dataInfoCtrl.getDataInfo)
-app.post('/api/user_data/:user_id', dataInfoCtrl.addDataInfo)
+app.post('/api/user_data_form', dataInfoCtrl.addDataInfo)
 
 //data file endpoints
 
