@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ToastContainer } from 'react-toastify';
-import "react-toastify/dist/ReactToastify.css";
-import { attemptLogin } from '../../redux/reducers/userReducer.js';
+// import { ToastContainer } from 'react-toastify';
+// import "react-toastify/dist/ReactToastify.css";
+import { attemptLogin, getUserSession } from '../../redux/reducers/userReducer.js';
+import { Link, withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 class Authentication extends Component {
@@ -17,24 +18,32 @@ class Authentication extends Component {
         }
     }
 
-    //Login
     login = () => {
         const { passLogin, emailLogin } = this.state;
 
         axios.post('/api/login', {password: passLogin, email: emailLogin})
         .then(response => {
-            console.log(response)
             this.props.attemptLogin(response.data)
+            this.props.history.push(`/user/${response.data.user_id}`)
         })
     }
 
-    //Register
+    register = () => {
+        const { userRegister, passRegister, emailRegister } = this.state;
+
+        axios.post('/api/register', {username: userRegister, password: passRegister, email: emailRegister})
+        .then(response => {
+            this.props.getUserSession(response.data)
+            this.props.history.push(`/user/${response.data.user_id}`)
+        })
+    }
 
     universalChangeHandler = (property,value) => {
         this.setState({
             [property]: value
         })
     }
+    
     render() {
     const { emailLogin, passLogin, userRegister, passRegister, emailRegister } = this.state;
     return (
@@ -47,7 +56,7 @@ class Authentication extends Component {
                     onChange={event => this.universalChangeHandler(event.target.name, event.target.value)}/>
                 
                 <button onClick={this.login}>Login</button>
-                <ToastContainer />
+                {/* <ToastContainer /> */}
             </div>
             <div>
                 <input type="text" placeholder="username" name="userRegister" value={userRegister}
@@ -59,7 +68,7 @@ class Authentication extends Component {
                 <input type="text" placeholder="email" name="emailRegister" value={emailRegister}
                     onChange={event => this.universalChangeHandler(event.target.name, event.target.value)}/>
                 
-                <button>Register</button>
+                <button onClick={this.register}>Register</button>
             </div>
             
         </div>
@@ -74,7 +83,8 @@ function mapReduxStateToProps(reduxState) {
 }
 
 const mapDispatchToProps = {
-    attemptLogin
+    attemptLogin,
+    getUserSession
 }
 
-export default connect(mapReduxStateToProps, mapDispatchToProps)(Authentication);
+export default withRouter(connect(mapReduxStateToProps, mapDispatchToProps)(Authentication));

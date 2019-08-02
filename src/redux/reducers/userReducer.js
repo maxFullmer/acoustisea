@@ -1,10 +1,8 @@
 const GET_USER_SESSION = 'GET_USER_SESSION';
 const ATTEMPT_LOGIN = 'ATTEMPT_LOGIN';
-const REGISTER = 'REGISTER';
-const LOGOUT = 'LOGOUT';
 
 const initialState = {
-    user: "hello"
+    user: null
 }
 
 export default function reducer(state = initialState, action) {
@@ -15,10 +13,6 @@ export default function reducer(state = initialState, action) {
             return {user: action.payload};
         case ATTEMPT_LOGIN:
             return {user: action.payload}
-        case REGISTER:
-            return {}
-        case LOGOUT:
-            return {}
         default:
             return state;
     }

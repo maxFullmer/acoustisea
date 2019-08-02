@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { getUserSession } from '../../redux/reducers/userReducer.js';
 import './Header.scss'
 import axios from 'axios'
@@ -11,6 +11,19 @@ class Header extends Component {
         .then(response => {
             console.log(response)
             this.props.getUserSession(response.data)
+            }
+        )
+    }
+
+    // userHome = () => {
+
+    // }
+
+    logout = () => {
+        axios.get('/api/logout')
+        .then(response => {
+            this.props.getUserSession(null);
+            this.props.history.push("/")
         })
     }
 
@@ -30,7 +43,7 @@ class Header extends Component {
                 <header>
                     <Link to="/user/:user_id"><button>User Home</button> </Link> 
                     <img src="/public/trident.png" alt="trident.png" />
-                    <Link to="/" ><button>Logout</button></Link>    
+                    <button onClick={this.logout}>Logout</button>
                 </header>
         ) 
     }
@@ -46,4 +59,4 @@ const mapDispatchToProps = {
     getUserSession
 }
 
-export default connect(mapReduxStateToProps, mapDispatchToProps)(Header);
+export default withRouter(connect(mapReduxStateToProps, mapDispatchToProps)(Header));
