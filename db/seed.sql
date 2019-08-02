@@ -15,20 +15,21 @@ VALUES
 ('Finny', 'kekek', 'dolphinisHim@sonarrr.com', 'Just a phin flipping around');
 
 CREATE TABLE datadescription(
-    data_id SERIAL PRIMARY KEY,
+    username TEXT NOT NULL,
+    user_id INTEGER NOT NULL,
     title VARCHAR(100),
-    marineBio BOOLEAN,
-    construction BOOLEAN,
-    vehicle BOOLEAN,
-    environmental BOOLEAN,
     file_type TEXT NOT NULL,
-    file_img TEXT DEFAULT NULL,
-    upload_date DATE NOT NULL DEFAULT CURRENT_DATE
+    marineBio BOOLEAN DEFAULT FALSE,
+    vehicle BOOLEAN DEFAULT FALSE,
+    construction BOOLEAN DEFAULT FALSE,
+    environmental BOOLEAN DEFAULT FALSE,
+    upload_date DATE NOT NULL DEFAULT CURRENT_DATE,
+    data_id SERIAL PRIMARY KEY
 );
 
-INSERT INTO datadescription (title, marineBio, construction, vehicle, environmental, file_type, file_img)
+INSERT INTO datadescription (username, user_id, title, file_type, marineBio)
 VALUES 
-('Bottlenose Dolphin 5-21kHz', TRUE, FALSE, FALSE, FALSE, 'png', 'https://www.researchgate.net/profile/Brian_Branstetter/publication/293820383/figure/fig1/AS:329766868668419@1455633956429/Signature-whistle-of-the-dolphin-SAY-A-Waveform-of-the-whistle-and-B-spectrogram-of.png');
+('sealio', 2, 'Bottlenose Dolphin 5-21kHz', 'png', TRUE);
 
 SELECT * FROM users;
 SELECT * FROM datadescription;
