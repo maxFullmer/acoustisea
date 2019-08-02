@@ -143,3 +143,6 @@ CREATE TABLE datadescription(
 ### Amazon S3 (cloud storage service)
 
 Bucket URL TBD. Bucket will be used to store the underwater acoustic data files.
+
+dummy file:
+'https://www.researchgate.net/profile/Brian_Branstetter/publication/293820383/figure/fig1/AS:329766868668419@1455633956429/Signature-whistle-of-the-dolphin-SAY-A-Waveform-of-the-whistle-and-B-spectrogram-of.png'

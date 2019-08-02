@@ -3,6 +3,7 @@ const express = require('express');
 const massive = require('massive');
 const session = require('express-session')
 const authCtrl = require('./controllers/authController.js');
+const dataInfoCtrl = require('./controllers/dataInfoController');
 const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET} = process.env;
 
 const app = express();
@@ -30,7 +31,12 @@ app.get('/api/user_session', authCtrl.userSession);
 
 //user endpoints
 
-//data endpoints
+//data info endpoints
+app.get('/api/user_data/:user_id', dataInfoCtrl.getDataInfo)
+app.post('/api/user_data/:user_id', dataInfoCtrl.addDataInfo)
+
+//data file endpoints
+
 
 
 app.listen(SERVER_PORT, () => console.log(`Rogue 1 you are cleared for entry on port ${SERVER_PORT}`));
