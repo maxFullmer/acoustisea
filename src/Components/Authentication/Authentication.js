@@ -38,7 +38,7 @@ class Authentication extends Component {
         })
     }
 
-    universalChangeHandler = (property,value) => {
+    textInputHandler = (property, value) => {
         this.setState({
             [property]: value
         })
@@ -50,23 +50,23 @@ class Authentication extends Component {
         <div>Authentication
             <div>
                 <input type="text" placeholder="email" name="emailLogin" value={emailLogin}
-                    onChange={event => this.universalChangeHandler(event.target.name, event.target.value)}/>
+                    onChange={event => this.textInputHandler(event.target.name, event.target.value)}/>
                 
                 <input type="password" placeholder="password" name="passLogin" value={passLogin}
-                    onChange={event => this.universalChangeHandler(event.target.name, event.target.value)}/>
+                    onChange={event => this.textInputHandler(event.target.name, event.target.value)}/>
                 
                 <button onClick={this.login}>Login</button>
                 {/* <ToastContainer /> */}
             </div>
             <div>
                 <input type="text" placeholder="username" name="userRegister" value={userRegister}
-                    onChange={event => this.universalChangeHandler(event.target.name, event.target.value)}/>
+                    onChange={event => this.textInputHandler(event.target.name, event.target.value)}/>
                 
                 <input type="password" placeholder="password" name="passRegister" value={passRegister}
-                    onChange={event => this.universalChangeHandler(event.target.name, event.target.value)}/>
+                    onChange={event => this.textInputHandler(event.target.name, event.target.value)}/>
                 
                 <input type="text" placeholder="email" name="emailRegister" value={emailRegister}
-                    onChange={event => this.universalChangeHandler(event.target.name, event.target.value)}/>
+                    onChange={event => this.textInputHandler(event.target.name, event.target.value)}/>
                 
                 <button onClick={this.register}>Register</button>
             </div>
