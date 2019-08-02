@@ -1,2 +1,2 @@
-SELECT * FROM datadescription
+SELECT * FROM dataInfo
 WHERE user_id = $1;

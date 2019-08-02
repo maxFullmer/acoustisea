@@ -130,13 +130,16 @@ CREATE TABLE users(
 
 ```sql
 CREATE TABLE datadescription(
-    data_id SERIAL PRIMARY KEY,
+    username TEXT NOT NULL,
+    user_id INTEGER NOT NULL,
     title VARCHAR(100),
-    marineBio BOOLEAN,
-    construction BOOLEAN,
-    vehicle BOOLEAN,
-    environmental BOOLEAN,
-    upload_date DATE NOT NULL DEFAULT CURRENT_DATE
+    file_type TEXT NOT NULL,
+    marineBio BOOLEAN DEFAULT FALSE,
+    vehicle BOOLEAN DEFAULT FALSE,
+    construction BOOLEAN DEFAULT FALSE,
+    environmental BOOLEAN DEFAULT FALSE,
+    upload_date DATE NOT NULL DEFAULT CURRENT_DATE,
+    data_id SERIAL PRIMARY KEY
 );
 ```
 
