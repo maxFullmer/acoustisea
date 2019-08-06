@@ -48,6 +48,15 @@
         - /UserProfile
             - UserProfile.js
             - UserProfile.scss
+        - /UserData
+            - UserData.js
+            - UserData.scss
+        - /UserInfo
+            - UserInfo.js
+            - UserInfo.scss
+        - /Subtopic
+            - Subtopic.js
+            - Subtopic.scss
         - /PublicData
             - PublicData.js
             - PublicData.scss
@@ -84,29 +93,31 @@
 
 ### Endpoints
 
-**auth**
+**Auth**
 - POST => /api/register => create new user in users table
 - POST => /api/login => instantiate session
+
+**Header**
 - GET => /api/logout => terminate session 
 - GET => /api/user_session => read session
 
-**user**
-- GET => /api/user/:user_id => read the info of a specific user in the users table
+**UserProfile**
+#### UserInfo
+- GET => /api/user/:user_id => get the info of a specific user from the users table
 - PUT => /api/user/:user_id => update the info of the session user in the users table
 
-**data**
+#### UserData
 
-##### data file
+- GET => /api/user_data/:user_id => get all the data belonging to a specific user from the dataInfo table
+- POST => /api/user_data/:user_id => for the session user, add new data info to dataInfo table syncronized with uploading file to Amazon S3 cloud storage
+- PUT => /api/user_data/:user_id/:data_id =>  for the session user, update a specific data info from the dataInfo table
+- DELETE => /api/delete/:data_id => for the session user, delete a data info from the dataInfo table when a specific data file is deleted from Amazon S3 cloud storage
+
+**data file (Amazon S3)**
+
 - POST => /api/upload?file=filename => upload new file into Amazon S3 cloud storage
 - GET => /api/download/:data_id => download a file from Amazon S3 cloud storage
 - DELETE => /api/delete/:data_id => delete a file from Amazon S3 cloud storage
-
-##### data description
-
-- GET => /api/user_data/:user_id => view the descrpitions of the data files belonging to a specific user or the session user
-- POST => /api/user_data/:user_id/ => add new description when data file is uploaded to Amazon S3
-- PUT => /api/user_data/:user_id/:data_id => update description of a specific data file of the session user
-- DELETE => /api/delete/:data_id => delete the description when a specific data file is deleted from Amazon S3 cloud storage
 
 
 ## Databases
@@ -129,15 +140,16 @@ CREATE TABLE users(
 - Data object (description, not actual underwater acoustic data file)
 
 ```sql
-CREATE TABLE datadescription(
+CREATE TABLE dataInfo(
     username TEXT NOT NULL,
     user_id INTEGER NOT NULL,
     title VARCHAR(100),
     file_type TEXT NOT NULL,
-    marineBio BOOLEAN DEFAULT FALSE,
+    marine_bio BOOLEAN DEFAULT FALSE,
     vehicle BOOLEAN DEFAULT FALSE,
-    construction BOOLEAN DEFAULT FALSE,
+    civil_egr BOOLEAN DEFAULT FALSE,
     environmental BOOLEAN DEFAULT FALSE,
+    data_summary TEXT DEFAULT NULL,
     upload_date DATE NOT NULL DEFAULT CURRENT_DATE,
     data_id SERIAL PRIMARY KEY
 );
@@ -145,7 +157,9 @@ CREATE TABLE datadescription(
 
 ### Amazon S3 (cloud storage service)
 
-Bucket URL TBD. Bucket will be used to store the underwater acoustic data files.
+Instead, it's best to store the images elsewhere and then store a reference to them in your database. These days the easiest way of doing this is generally to use Amazon S3, which can cheaply and reliably store an unlimited number of images. Save them to S3, then store the S3 URL (or the bucket + key combination) in a string in your database row.
+
+Bucket URL TBD. Bucket will be used to store the underwater acoustic data files and profile images.
 
 dummy file:
 'https://www.researchgate.net/profile/Brian_Branstetter/publication/293820383/figure/fig1/AS:329766868668419@1455633956429/Signature-whistle-of-the-dolphin-SAY-A-Waveform-of-the-whistle-and-B-spectrogram-of.png'
