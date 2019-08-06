@@ -3,7 +3,8 @@ const express = require('express');
 const massive = require('massive');
 const session = require('express-session')
 const authCtrl = require('./controllers/authController.js');
-const dataInfoCtrl = require('./controllers/dataInfoController');
+const userInfoCtrl = require('./controllers/userInfoController.js')
+const dataInfoCtrl = require('./controllers/dataInfoController.js');
 const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET} = process.env;
 
 const app = express();
@@ -23,19 +24,26 @@ app.use(session({
     }
 }))
 
-//auth endpoints
+// Auth
 app.post('/api/register', authCtrl.register);
 app.post('/api/login', authCtrl.login);
+
+// Header
 app.get('/api/logout', authCtrl.logout);
 app.get('/api/user_session', authCtrl.userSession);
 
-//user endpoints
+//UserInfo
+app.get('/api/user/:user_id', userInfoCtrl.getUserInfo);
+app.put('/api/user/bio/:user_id', userInfoCtrl.updateUserBio);
+app.put('/api/user/profile_picture/:user_id', userInfoCtrl.updateUserPic)
 
-//data info endpoints
-app.get('/api/user_data/:user_id', dataInfoCtrl.getDataInfo)
-app.post('/api/user_data_form', dataInfoCtrl.addDataInfo)
+// DataInfo
+app.get('/api/user_data/:user_id', dataInfoCtrl.getDataInfo);
+app.post('/api/user_data_form', dataInfoCtrl.addDataInfo);
+app.put('/api/user_data/:user_id/:data_id');
+app.delete('/api/user_data_');
 
-//data file endpoints
+//Amazon S3 endpoints
 
 
 

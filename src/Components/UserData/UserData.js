@@ -8,7 +8,7 @@ class UserData extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            dataToDisplay: [],
+            dataInfoToDisplay: [],
             dataTitle: "",
             file_type: "",
             isMarBio: true,
@@ -23,13 +23,12 @@ class UserData extends Component {
         axios.get(`/api/user_data/${this.props.match.params.user_id}`)
         .then(response => {
             this.setState({
-                dataToDisplay: response.data
+                dataInfoToDisplay: response.data
             })
         })
     }
 
     subtopicHandler = (event) => {
-        console.log(this.state.isMarBio)
         this.setState({
             isMarBio: false,
             isVaV: false,
@@ -45,7 +44,9 @@ class UserData extends Component {
         })
     }
 
-    postDataDescription = () => {
+    postDataInfo = (event) => {
+        event.preventDefault();
+
         const { username, user_id } = this.props.user;
         const { dataTitle, file_type, isMarBio, isVaV, isCivilEgr, isEnviron, dataSummary } = this.state;
         const subtopicArray = [isMarBio, isVaV, isCivilEgr, isEnviron];
@@ -61,38 +62,66 @@ class UserData extends Component {
             })
         .then(response => {
             this.setState({
-                dataToDisplay: [ ...this.state.dataArray, response.data]
+                dataInfoToDisplay: [ ...this.state.dataInfoToDisplay, response.data]
             }) 
         })
     }
 
+    updateDataInfo = () => {
+
+    }
+
+    // downloadS3 = () => {
+    //     if(this.props.user) {
+    //         axios.get('AMAZONS3',
+    //         // dataObj belongs to mapping data Info objects from the dataArray
+    //         {
+    //             data_id: dataObj.data_id,
+    //             username: dataObj.username,
+    //             user_id: dataObj.user_id
+    //         })
+    //         .then(response => {
+    //             // figure out how to get the file to the requester... => something: response
+    //         })
+    //     } else {
+    //         //get toastify up in here
+    //         alert('Please log in/register to download')
+    //         // show login button to redirect to login/register
+    //     }
+    // }
+
     render() {
-        let { dataToDisplay } = this.state;
-        let mappedUserData = dataToDisplay.map((dataObj, index) => {
+        let { dataInfoToDisplay } = this.state;
+        let mappedUserData = dataInfoToDisplay.map((dataObj, index) => {
             return (
                 <div key={index}>
                     <ul>
                         <li>{dataObj.title}</li>
                         <li>{dataObj.file_type}</li>
-
-                        <li>{dataObj.marineBio ? "Marine Bioacoustics" : null}</li>
+                        <li>{dataObj.marine_bio ? "Marine Bioacoustics" : null}                        </li>
                         <li>{dataObj.vehicle ? "Vessels & Vehicles" : null}</li>
-                        <li>{dataObj.civilEgr ? "Civil Engineering" : null}</li>
+                        <li>{dataObj.civil_egr ? "Civil Engineering" : null}</li>
                         <li>{dataObj.environmental ? "Environmental" : null}</li>
-
                         <li>{dataObj.upload_date.slice(0,10)}</li>
-                        <li>{dataObj.description}</li>
+                        <li>{dataObj.data_summary}</li>
+                        <li>{
+                            (this.props.user !== null 
+                            && this.props.user.user_id === +this.props.match.params.user_id
+                            ) 
+                            ? 
+                            <button onChange={(event) => this.updateDataInfo(event)}>EDIT</button>
+                            :
+                            null}
+                        </li>
+                        {/* <li><button onClick={this.downloadS3}>DOWNLOAD</button></li> */}
                     </ul>
                 </div>
             )
         })
 
-        console.log('Data To Display: ', dataToDisplay)
         // console.log('session user: ', this.props.user)
         // console.log('match params id from URL: ', this.props.match.params.user_id)
-        console.log('dataSummary: ', this.state.dataTitle)
-        console.log('dataSummary: ', this.state.file_type)
-        console.log('dataSummary: ', this.state.dataSummary)
+
         return (
             <div>
                 <div>{mappedUserData}</div>
@@ -141,7 +170,7 @@ class UserData extends Component {
                         </div>
 
                         <div>
-                            <button type="submit" onSubmit={this.postDataDescription}>Submit</button>
+                            <button type="submit" onSubmit={(event) => this.postDataInfo(event)}>Submit</button>
                         </div>
                     </form> 
                     )
