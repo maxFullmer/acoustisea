@@ -3,7 +3,7 @@
   "name": "Acoustisea",
   "icons": [
     {
-      "src": "trident.png",
+      "src": "../src/trident.png",
       "sizes": "128x128 48x48 32x32 24x24 16x16",
       "type": "image/png"
     }
