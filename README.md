@@ -54,7 +54,7 @@
         - /UserInfo
             - UserInfo.js
             - UserInfo.scss
-        - /Subtopic
+        - /SubtopicDisplayCenter
             - Subtopic.js
             - Subtopic.scss
         - /PublicData
