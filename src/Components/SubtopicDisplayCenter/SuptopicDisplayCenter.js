@@ -12,7 +12,6 @@ class SuptopicDisplayCenter extends Component {
     }
     render() {
         return (
-            //send parsed query to child now that state was updated with it
             <PublicData subtopic={this.state.subtopic} />
         );
     }
