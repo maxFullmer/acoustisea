@@ -51,7 +51,7 @@ class UserData extends Component {
         const { dataTitle, file_type, isMarBio, isVaV, isCivilEgr, isEnviron, dataSummary } = this.state;
         const subtopicArray = [isMarBio, isVaV, isCivilEgr, isEnviron];
 
-        axios.post(`/api/user_data_form`, 
+        axios.post('/api/user_data_form', 
             {
                 username: username, 
                 user_id: user_id, 
@@ -119,8 +119,7 @@ class UserData extends Component {
             )
         })
 
-        // console.log('session user: ', this.props.user)
-        // console.log('match params id from URL: ', this.props.match.params.user_id)
+        console.log('dataInfoToDisplay: ', this.state.dataInfoToDisplay)
 
         return (
             <div>

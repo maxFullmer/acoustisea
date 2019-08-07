@@ -1,9 +1,12 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, {Component } from 'react';
 import UserInfo from '../UserInfo/UserInfo.js'
 import UserData from '../UserData/UserData.js';
 
-function UserProfile() {
+class UserProfile extends Component {
+    routeHandler = (event) => {
+        this.props.history.push(`/publicdata?subtopic=${event.target.name}`)
+    }
+    render() {
     return (
         <div>
             <section>
@@ -13,10 +16,22 @@ function UserProfile() {
             <section>
                 <nav>
                     <ul className="nav-grid">
-                        <li><Link className="marbio" to="/marinebioacoustics">Marine Bioacoustics</Link></li>
-                        <li><Link className="vv" to="/vesselsandvehicles">Vessels {"&"} Vehicles</Link></li>
-                        <li><Link className="constrc" to="/construction">Construction</Link></li>
-                        <li><Link className="environ" to="/environmental">Environmental</Link></li>
+                        <li>
+                            <button className="marbio" name="marinebioacoustics" 
+                            onClick={(event) => this.routeHandler(event)}>Marine Bioacoustics</button>
+                        </li>
+                        <li>
+                            <button className="vv" name="vesselsandvehicles"
+                            onClick={(event) => this.routeHandler(event)}>Vessels {"&"} Vehicles</button>
+                        </li>
+                        <li>
+                            <button className="constrc" name="civilengineering"
+                            onClick={(event) => this.routeHandler(event)}>Construction</button>
+                        </li>
+                        <li>
+                            <button className="environ" name="environmental"
+                            onClick={(event) => this.routeHandler(event)}>Environmental</button>
+                        </li>
                     </ul>
                 </nav>
 
@@ -24,6 +39,7 @@ function UserProfile() {
             </section>
         </div>
     )
+    }
 }
 
 export default UserProfile;
