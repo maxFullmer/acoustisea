@@ -1,4 +1,5 @@
 module.exports = {
+    // Data Info
     getUserDataInfo: async (req, res) => {
         const db = req.app.get('db');
         const { user_id } = req.params;
@@ -19,10 +20,16 @@ module.exports = {
         res.status(200).send(newPost[newPost.length - 1])
     },
 
-    // updateDataInfo: async (req, res) => {
-    //     const db = req.app.get('db');
-    //     const { user_id, title, file_type, subtopicArray, dataSummary, data_id} = req.body;
-    // },
+    updateUserDataInfo: async (req, res) => {
+        const db = req.app.get('db');
+        const { title, file_type, subtopicArray, dataSummary, data_id } = req.body;
+
+        const [updatedDataInfo] = await db.update_user_data_info([data_id, title, file_type, ...subtopicArray, dataSummary])
+        .catch(err => console.log(err));
+
+        console.log('updated data info: ', updatedDataInfo)
+        res.status(200).send(updatedDataInfo)
+    },
 
     deleteUserDataInfo: async (req, res) => {
         const db = req.app.get('db');
@@ -33,6 +40,8 @@ module.exports = {
 
         res.status(200).send(diminishedUserData)
     },
+
+    //Public Data
 
     getSubtopicDataInfo: async (req, res) => {
         const db = req.app.get('db');

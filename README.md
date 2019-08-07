@@ -110,9 +110,9 @@
 #### UserData
 
 - GET => /api/user_data/:user_id => get all the data info belonging to a specific user from the dataInfo table
-- POST => /api/user_data/:user_id => for the session user, add new data info to dataInfo table syncronized with uploading file to Amazon S3 cloud storage
-- PUT => /api/user_data/:user_id/:data_id =>  for the session user, update a specific data info from the dataInfo table
-- DELETE => /api/delete/:data_id => for the session user, delete a data info from the dataInfo table when a specific data file is deleted from Amazon S3 cloud storage
+- POST => /api/user_data_form => for the session user, add new data info to dataInfo table syncronized with uploading file to Amazon S3 cloud storage
+- PUT => /api/user_data_form =>  for the session user, update a specific data info from the dataInfo table
+- DELETE => /api/user_data => for the session user, delete a data info from the dataInfo table when a specific data file is deleted from Amazon S3 cloud storage
 
 **SubtopicDisplayCenter**
 #### PublicData
