@@ -28,11 +28,11 @@
 
 - / => (Home/Login)
 - /user/:user_id
-- /marinebioacoustics
-- /vesselsandvehicles
-- /construction
-- /environmental
-- \* 404: page not found
+- /publicdata/subtopic?marinebioacoustics
+- /publicdata/subtopic?vesselsandvehicles
+- /publicdata/subtopic?civilengineering
+- /publicdata/subtopic?environmental
+- /\* 404: page not found
 
 
 
@@ -63,7 +63,7 @@
             - PublicData.scss
     - /redux
         - store.js
-        - reducer.js
+        - userReducer.js
     - App.scss
     - App.js
     - App.test.js
@@ -92,7 +92,7 @@
     - /middleware
         - middleware.js
 
-### Endpoints
+### Endpoints 
 
 **Auth**
 - POST => /api/register => create new user in users table
@@ -109,10 +109,14 @@
 
 #### UserData
 
-- GET => /api/user_data/:user_id => get all the data belonging to a specific user from the dataInfo table
+- GET => /api/user_data/:user_id => get all the data info belonging to a specific user from the dataInfo table
 - POST => /api/user_data/:user_id => for the session user, add new data info to dataInfo table syncronized with uploading file to Amazon S3 cloud storage
 - PUT => /api/user_data/:user_id/:data_id =>  for the session user, update a specific data info from the dataInfo table
 - DELETE => /api/delete/:data_id => for the session user, delete a data info from the dataInfo table when a specific data file is deleted from Amazon S3 cloud storage
+
+**SubtopicDisplayCenter**
+#### PublicData
+- GET => /api/publicData/:subtopicSelected => get all the data info pertaining to a subtopic from the dataInfo table
 
 **data file (Amazon S3)**
 

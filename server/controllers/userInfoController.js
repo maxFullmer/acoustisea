@@ -16,6 +16,7 @@ module.exports = {
         res.status(200).send(newBio);
     },
 
+    // Amazon S3
     updateUserPic: async (req, res) => {
         const db = req.app.get('db');
         const { user_id } = req.params;
