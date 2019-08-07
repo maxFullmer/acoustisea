@@ -1,2 +1,2 @@
-SELECT * FROM dataInfo
-WHERE $1 = true;
+SELECT * FROM dataInfo;
+-- WHERE dataInfo($1) = true;

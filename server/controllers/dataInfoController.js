@@ -21,8 +21,18 @@ module.exports = {
 
     // updateDataInfo: async (req, res) => {
     //     const db = req.app.get('db');
-    //     const { user_id, }
-    // }
+    //     const { user_id, title, file_type, subtopicArray, dataSummary, data_id} = req.body;
+    // },
+
+    deleteUserDataInfo: async (req, res) => {
+        const db = req.app.get('db');
+        const { user_id, data_id } = req.body;
+        
+        const diminishedUserData = await db.delete_user_data_info([user_id, data_id])
+        .catch(err => console.log(err));
+
+        res.status(200).send(diminishedUserData)
+    },
 
     getSubtopicDataInfo: async (req, res) => {
         const db = req.app.get('db');
@@ -32,8 +42,15 @@ module.exports = {
         //error within sql statement VVV
         const subtopicData = await db.get_subtopic_data_info([subtopicSelected])
         .catch(err => console.log(err));
-        console.log(subtopicData)
 
-        res.status(200).send(subtopicData);
+        const publicData = subtopicData.filter(element => {
+            console.log(element.subtopicSelected)
+            return element[subtopicSelected] === true
+        })
+        
+        // console.log(subtopicData)
+        // console.log(publicData)
+
+        res.status(200).send(publicData);
     }
 }

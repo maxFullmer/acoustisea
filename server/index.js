@@ -24,7 +24,7 @@ app.use(session({
     }
 }))
 
-// Auth
+// Authorization
 app.post('/api/register', authCtrl.register);
 app.post('/api/login', authCtrl.login);
 
@@ -40,8 +40,8 @@ app.put('/api/user/profile_picture/:user_id', userInfoCtrl.updateUserPic)
 // DataInfo (for a user)
 app.get('/api/user_data/:user_id', dataInfoCtrl.getUserDataInfo);
 app.post('/api/user_data_form', dataInfoCtrl.addUserDataInfo);
-app.put('/api/user_data/:user_id/:data_id');
-app.delete('/api/user_data_');
+app.put('/api/user_data');
+app.delete('/api/user_data', dataInfoCtrl.deleteUserDataInfo);
 
 // DataInfo (for public)
 app.get('/api/publicData/:subtopicSelected', dataInfoCtrl.getSubtopicDataInfo)
