@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 
 class PublicData extends Component {
     constructor(props) {
@@ -17,7 +18,7 @@ class PublicData extends Component {
         //set selected subtopic to database column name that we are sending to backend
         switch(subtopic) {
             case 'marinebioacoustics': {
-                let selectedSubtopic = 'marine_bio';
+                let selectedSubtopic = 'marBio';
                 axios.get(`/api/publicData/${selectedSubtopic}`)
                 .then(response => {
                     this.setState({
@@ -27,7 +28,7 @@ class PublicData extends Component {
                 break;
             }
             case 'vesselsandvehicles': {
-                let selectedSubtopic = 'vehicle';
+                let selectedSubtopic = 'VaV';
                 axios.get(`/api/publicData/${selectedSubtopic}`)
                 .then(response => {
                     this.setState({
@@ -36,8 +37,8 @@ class PublicData extends Component {
                 })
                 break;
             }
-            case 'civilengineering': {
-                let selectedSubtopic = 'civil_egr';
+            case 'structures': {
+                let selectedSubtopic = 'strctr';
                 axios.get(`/api/publicData/${selectedSubtopic}`)
                 .then(response => {
                     this.setState({
@@ -47,7 +48,7 @@ class PublicData extends Component {
                 break;
             }
             case 'environmental': {
-                let selectedSubtopic = 'environmental';
+                let selectedSubtopic = 'enviro';
                 axios.get(`/api/publicData/${selectedSubtopic}`)
                 .then(response => {
                     this.setState({
@@ -60,6 +61,13 @@ class PublicData extends Component {
                 console.log('query string failed, no data should be showing.')
         }    
     }
+
+    goToOtherUserPage(event, id) {
+        event.preventDefault();
+        console.log('PublicObj.user_id: ', id)
+        this.props.history.push(`/user/${id}`)
+    }
+
     render() {
         console.log('props from subtopic display to public data component: ', this.props)
         let { publicDataToDisplay } = this.state;
@@ -71,7 +79,12 @@ class PublicData extends Component {
                         <li>{publicDataObj.file_type}</li>
                         <li>{publicDataObj.upload_date.slice(0,10)}</li>
                         <li>{publicDataObj.data_summary}</li>
-                        <li>{publicDataObj.username}</li>
+                        {/* link to user page when clicking on user name VVV */}
+                        <li>
+                            <span onClick={(event) => this.goToOtherUserPage(event, publicDataObj.user_id)}>
+                                {publicDataObj.username}
+                            </span>
+                        </li>
                     </ul>
                 </div>
             )
@@ -84,4 +97,4 @@ class PublicData extends Component {
     }
 }
 
-export default PublicData;
+export default withRouter(PublicData);

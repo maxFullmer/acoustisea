@@ -41,7 +41,7 @@ app.put('/api/user/profile_picture/:user_id', userInfoCtrl.updateUserPic)
 app.get('/api/user_data/:user_id', dataInfoCtrl.getUserDataInfo);
 app.post('/api/user_data_form', dataInfoCtrl.addUserDataInfo);
 app.put('/api/user_data_form', dataInfoCtrl.updateUserDataInfo);
-app.delete('/api/user_data', dataInfoCtrl.deleteUserDataInfo);
+app.delete('/api/user_data/:user_id', dataInfoCtrl.deleteUserDataInfo);
 
 // DataInfo (for public)
 app.get('/api/publicData/:subtopicSelected', dataInfoCtrl.getSubtopicDataInfo)

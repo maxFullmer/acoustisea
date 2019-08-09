@@ -1,2 +1,3 @@
-SELECT * FROM dataInfo;
--- WHERE dataInfo($1) = true;
+SELECT * FROM dataInfo
+WHERE dataInfo.subtopic = $1
+ORDER BY upload_date DESC;

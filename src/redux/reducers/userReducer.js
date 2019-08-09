@@ -8,8 +8,6 @@ const initialState = {
 export default function reducer(state = initialState, action) {
     switch (action.type) {
         case GET_USER_SESSION:
-            console.log(action.payload)
-            console.log(state.user)
             return {user: action.payload};
         case ATTEMPT_LOGIN:
             return {user: action.payload}

@@ -22,6 +22,7 @@
 - react-icons/fa
 - http-proxy-middleware
 - redux-promise-middleware
+- toastify
 - query-string
 
 ### Routes

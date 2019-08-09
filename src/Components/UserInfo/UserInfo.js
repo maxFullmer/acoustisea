@@ -36,10 +36,10 @@ class UserInfo extends Component {
     }
 
     confirmProfilePicture() {
-        const { new_profile_picture } = this.state;
+        let { new_profile_picture } = this.state;
 
         if (!new_profile_picture) {
-            const { user_id } = this.props.user;
+            let { user_id } = this.props.user;
         
         
             axios.put(`/api/user/profile_picture/${user_id}`, {profile_picture: new_profile_picture})
@@ -64,7 +64,7 @@ class UserInfo extends Component {
     }
 
     updateBio = () => {
-        const { biography } = this.state;
+        let { biography } = this.state;
         axios.put(`/api/user/bio/${this.props.match.params.user_id}`, biography)
         .then(response => {
             this.setState({
@@ -74,8 +74,7 @@ class UserInfo extends Component {
     }
 
     render() {
-        const { userInfoToDisplay } = this.state;
-        console.log('new_profile_pic state: ', this.state.new_profile_picture)
+        let { userInfoToDisplay } = this.state;
         return (
             <div>
                 <ul>

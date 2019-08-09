@@ -12,9 +12,9 @@ module.exports = {
 
     addUserDataInfo: async (req, res) => {
         const db = req.app.get('db');
-        const { username, user_id, title, file_type, subtopicArray, dataSummary } = req.body;
+        const { username, user_id, title, file_type, subtopic, dataSummary } = req.body;
         console.log(req.body)
-        const newPost = await db.add_user_data_info([username, user_id, title, file_type, ...subtopicArray, dataSummary])
+        const newPost = await db.add_user_data_info([username, user_id, title, file_type, subtopic, dataSummary])
         .catch(err => console.log(err));
         console.log(newPost)
         res.status(200).send(newPost[newPost.length - 1])
@@ -22,9 +22,10 @@ module.exports = {
 
     updateUserDataInfo: async (req, res) => {
         const db = req.app.get('db');
-        const { title, file_type, subtopicArray, dataSummary, data_id } = req.body;
+        const { title, file_type, subtopic, dataSummary, data_id, user_id } = req.body;
+        console.log('req.body', req.body)
 
-        const [updatedDataInfo] = await db.update_user_data_info([data_id, title, file_type, ...subtopicArray, dataSummary])
+        const [updatedDataInfo] = await db.update_user_data_info([data_id, title, file_type, subtopic, dataSummary, user_id])
         .catch(err => console.log(err));
 
         console.log('updated data info: ', updatedDataInfo)
@@ -33,7 +34,8 @@ module.exports = {
 
     deleteUserDataInfo: async (req, res) => {
         const db = req.app.get('db');
-        const { user_id, data_id } = req.body;
+        const { user_id } = req.params;
+        const { data_id } = req.query;
         
         const diminishedUserData = await db.delete_user_data_info([user_id, data_id])
         .catch(err => console.log(err));
@@ -52,14 +54,11 @@ module.exports = {
         const subtopicData = await db.get_subtopic_data_info([subtopicSelected])
         .catch(err => console.log(err));
 
-        const publicData = subtopicData.filter(element => {
-            console.log(element.subtopicSelected)
-            return element[subtopicSelected] === true
-        })
+        console.log(subtopicData)
         
         // console.log(subtopicData)
         // console.log(publicData)
 
-        res.status(200).send(publicData);
+        res.status(200).send(subtopicData);
     }
 }

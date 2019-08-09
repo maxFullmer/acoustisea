@@ -13,7 +13,12 @@ function App() {
       <Header />
       <Switch>
         <Route exact path="/" component={Authentication}/>
-        <Route path="/user/:user_id" component={UserProfile} />
+        <Route path="/user/:user_id" 
+        // every time the user_id parameter in the URL path changes, the route will rerender UserProfile component
+                render={(props) => (
+          <UserProfile key={props.match.params.user_id} {...props}/>
+          ) 
+          } />
         {/* path below will have query attached to it when page is linked to from user page */}
         <Route path="/publicdata" component={SubtopicDisplayCenter}/>
         <Route path="*" render={() => {return <div>404: Page not found. You may have made a syntactical error. Please check spelling of URL.</div>}}/>

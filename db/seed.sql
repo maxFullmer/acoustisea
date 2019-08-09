@@ -19,18 +19,15 @@ CREATE TABLE dataInfo(
     user_id INTEGER NOT NULL,
     title VARCHAR(100),
     file_type TEXT NOT NULL,
-    marine_bio BOOLEAN DEFAULT FALSE,
-    vehicle BOOLEAN DEFAULT FALSE,
-    civil_egr BOOLEAN DEFAULT FALSE,
-    environmental BOOLEAN DEFAULT FALSE,
+    subtopic TEXT NOT NULL,
     data_summary TEXT DEFAULT NULL,
     upload_date DATE NOT NULL DEFAULT CURRENT_DATE,
     data_id SERIAL PRIMARY KEY
 );
 
-INSERT INTO dataInfo (username, user_id, title, file_type, marine_bio)
+INSERT INTO dataInfo (username, user_id, title, file_type, subtopic)
 VALUES 
-('sealio', 2, 'Bottlenose Dolphin 5-21kHz', '.png', TRUE);
+('sealio', 2, 'Bottlenose Dolphin 5-21kHz', '.png', 'marBio');
 
 SELECT * FROM users;
 SELECT * FROM dataInfo;

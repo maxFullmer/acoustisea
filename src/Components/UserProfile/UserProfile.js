@@ -1,6 +1,7 @@
 import React, {Component } from 'react';
 import UserInfo from '../UserInfo/UserInfo.js'
 import UserData from '../UserData/UserData.js';
+import '../UserProfile.scss'
 
 class UserProfile extends Component {
     routeHandler = (event) => {
@@ -25,7 +26,7 @@ class UserProfile extends Component {
                             onClick={(event) => this.routeHandler(event)}>Vessels {"&"} Vehicles</button>
                         </li>
                         <li>
-                            <button className="constrc" name="civilengineering"
+                            <button className="constrc" name="structures"
                             onClick={(event) => this.routeHandler(event)}>Construction</button>
                         </li>
                         <li>
