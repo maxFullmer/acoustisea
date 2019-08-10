@@ -1,6 +1,5 @@
 import React from 'react';
 import {Switch, Route} from 'react-router-dom';
-
 import Header from './Components/Header/Header.js';
 import Authentication from './Components/Authentication/Authentication.js';
 import UserProfile from './Components/UserProfile/UserProfile.js';

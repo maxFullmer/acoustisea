@@ -1,16 +1,11 @@
-@import '../../variables.scss';
+@import '../../_varMixGlobal.scss';
 
 header {
     background: $gold;    
-    height: 5%; 
-    width: 100%;
+    height: 5%;
     padding: 4%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    button {
-        @include file-button;
-        margin: 4%;
-    }
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { getUserSession } from '../../redux/reducers/userReducer.js';
-import './Header.scss'
+// import './_Header.scss'
 import axios from 'axios'
 
 class Header extends Component {

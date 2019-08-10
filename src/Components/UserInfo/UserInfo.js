@@ -3,6 +3,7 @@ import axios from 'axios';
 import { getUserSession } from '../../redux/reducers/userReducer.js';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+// import './_UserInfo.scss'
 
 class UserInfo extends Component {
     constructor(props) {
@@ -77,25 +78,27 @@ class UserInfo extends Component {
         let { userInfoToDisplay } = this.state;
         return (
             <div>
-                <ul>
-                    <li>{userInfoToDisplay.username}</li>
-                    <li><img src={userInfoToDisplay.profile_picture} alt="Profile"/></li>
-                    <li>{
-                            (this.props.user !== null 
-                            && this.props.user.user_id === +this.props.match.params.user_id
-                            ) 
-                            ? 
-                            <div>
-                                <label htmlFor="Swap Profile Picture">Swap Profile Picture</label>
-                                <input type="file" name="Swap Profile Picture" accept="image/*"
-                                    onChange={this.selectProfilePicture} 
-                                    />
-                                <button onClick={this.confirmProfilePicture}>Confirm</button>
-                            </div>
-                            :
-                            null}</li>
-                    <li>Bio: {userInfoToDisplay.biography}</li>
-                </ul>
+                <div>
+                    {
+                    (this.props.user !== null 
+                    && this.props.user.user_id === +this.props.match.params.user_id
+                    ) 
+                    ? 
+                    <ul className="profile">
+                        <li><img id="camera" src={userInfoToDisplay.profile_picture} alt="Profile"/></li>
+                        <li><span>{userInfoToDisplay.username}</span></li>
+                    </ul>
+                    :
+                    <ul className="profile">
+                        <li><img src={userInfoToDisplay.profile_picture} alt="Profile"/></li>
+                        <li><span>{userInfoToDisplay.username}</span></li>
+                    </ul>}
+                </div>
+
+                <div>
+                    <h2>User Bio</h2>
+                    <span>{userInfoToDisplay.biography}</span>
+                </div>
             </div>
         );
     }

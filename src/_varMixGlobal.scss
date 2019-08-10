@@ -1,0 +1,25 @@
+$gold: #f6c700;
+// $silver: #c0c0c0;
+$silver: #f1eaee;
+// $blue: #005eaa;
+$blue: #0073ad;
+$white: #f1f1f1;
+
+
+@mixin acoustiseaButton {
+    background: $blue;
+    border-radius: 15%;
+    border: solid $silver;
+    color: $white
+}
+
+%nav-text-color {
+    // text-decoration: none;
+    color: $silver;
+}
+
+@mixin centercenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

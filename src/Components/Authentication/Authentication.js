@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 // import { ToastContainer } from 'react-toastify';
 // import "react-toastify/dist/ReactToastify.css";
 import { attemptLogin, getUserSession } from '../../redux/reducers/userReducer.js';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
+// import './_Authentication.scss'
 
 class Authentication extends Component {
     constructor(props) {

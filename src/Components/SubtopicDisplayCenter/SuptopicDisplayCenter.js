@@ -1,6 +1,7 @@
 import queryString from 'query-string';
 import React, { Component } from 'react';
 import PublicData from '../PublicData/PublicData.js';
+// import './_SubtopicDisplayCenter.scss';
 
 class SuptopicDisplayCenter extends Component {
     constructor(props) {

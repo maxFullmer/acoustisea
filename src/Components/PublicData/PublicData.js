@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
+// import './_PublicData.scss';
 
 class PublicData extends Component {
     constructor(props) {
@@ -49,6 +50,16 @@ class PublicData extends Component {
             }
             case 'environmental': {
                 let selectedSubtopic = 'enviro';
+                axios.get(`/api/publicData/${selectedSubtopic}`)
+                .then(response => {
+                    this.setState({
+                        publicDataToDisplay: response.data
+                    })
+                })
+                break;
+            }
+            case 'unknown': {
+                let selectedSubtopic = 'unknown';
                 axios.get(`/api/publicData/${selectedSubtopic}`)
                 .then(response => {
                     this.setState({

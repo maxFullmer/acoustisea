@@ -1,9 +1,19 @@
+@import './Components/Header/_Header.scss';
+@import './Components/Authentication/_Authentication';
+@import './Components/UserProfile/_UserProfile';
+@import './Components/UserInfo/_UserInfo.scss';
+@import './Components/UserData/_UserData.scss';
+@import './Components/SubtopicDisplayCenter/_SubtopicDisplayCenter.scss';
+@import './Components/PublicData/_PublicData.scss';
+
+
 body {
     font-family: 'Oswald', sans-serif;
     height: 100%;
-    width: 92.5%;
+    width: 100%;
 }
 
-a {
-    text-decoration: none;
+button {
+    @include acoustiseaButton;
+    margin: 4%;
 }

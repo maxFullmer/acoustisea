@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import {connect} from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { getUserSession } from '../../redux/reducers/userReducer.js';
-import axios from 'axios';
-import { breakStatement } from '@babel/types';
+// import './_UserData.scss';
 
 class UserData extends Component {
     constructor(props) {
@@ -25,7 +25,6 @@ class UserData extends Component {
     }
 
     componentDidMount() {
-        console.log('UserData didmount hit')
         axios.get(`/api/user_data/${this.props.match.params.user_id}`)
         .then(response => {
             this.setState({

@@ -1,0 +1,44 @@
+@import '../../_varMixGlobal.scss';
+
+.profile {
+    min-height: 25vh;
+    width: 100%;
+    background: url('https://cdn.pixabay.com/photo/2014/04/04/14/56/background-313418_1280.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    li {
+        width: 80%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        img {
+            height: 200px;
+            width: 80%;
+            min-width: 200px;
+            max-width: 300px;
+            border-radius: 25% 25%;
+            margin-top: 10px;
+            z-index: 98;
+        }
+        
+        #camera:hover {
+            zoom: 1;
+            filter: alpha(opacity=50);
+            opacity: 0.5;
+            background: url('/src/icons/outline_camera_front_white_48dp.png');
+            z-index: 97;
+        }
+        
+
+        span {
+            text-align: center;
+            min-width: 175px;
+            max-width: 225px;
+            color: $white + 50;
+            // color: $silver + 50;
+        }
+    }
+}
