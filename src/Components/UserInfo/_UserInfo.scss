@@ -9,11 +9,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-size: 1.5em;
+
     li {
         width: 80%;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
+        @include centercentercol;
+
         img {
             height: 200px;
             width: 80%;
@@ -25,13 +26,18 @@
         }
         
         #camera:hover {
-            zoom: 1;
             filter: alpha(opacity=50);
             opacity: 0.5;
-            background: url('/src/icons/outline_camera_front_white_48dp.png');
+            background: url('/src/iconsAndImages/outline_camera_front_white_48dp.png');
             z-index: 97;
         }
         
+        #swap-picture {
+            margin: 10px;
+            width: 80%;
+            background: gray;
+            @include centercentercol;
+        }
 
         span {
             text-align: center;

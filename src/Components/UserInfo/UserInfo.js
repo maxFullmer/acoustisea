@@ -11,13 +11,11 @@ class UserInfo extends Component {
 
         this.state = {
             userInfoToDisplay: [],
-            new_profile_picture: null,
+            newProfilePicture: null,
+            profileImgClickedOn: false,
             biography: ""
         };
-
-        this.selectProfilePicture = this.selectProfilePicture.bind(this);
-        this.confirmProfilePicture = this.confirmProfilePicture.bind(this);
-        }
+    }
 
     componentDidMount() {
         axios.get(`/api/user/${this.props.match.params.user_id}`)
@@ -27,41 +25,62 @@ class UserInfo extends Component {
             });
         });
     }
+    //Amazon S3 changing profile Pic
 
-    selectProfilePicture(event) {
-        let file = event.target.files[0];
-
+    handleImgClick = (event) => {
+        event.preventDefault();
         this.setState({
-            new_profile_picture: file
-        });
+            profileImgClickedOn: true
+        })
     }
 
-    confirmProfilePicture() {
-        let { new_profile_picture } = this.state;
-
-        if (!new_profile_picture) {
-            let { user_id } = this.props.user;
-        
-        
-            axios.put(`/api/user/profile_picture/${user_id}`, {profile_picture: new_profile_picture})
-            .then(response => {
-                this.setState({
-                    userInfoToDisplay: response.data
-                })
+    handleProfilePicture = (event) => {
+        console.log('hit handle prof pic')
+            this.setState({
+                newProfilePicture: event.target.files
             });
         }
+
+    submitFile = (event) => {
+        console.log('hit submit')
+        event.preventDefault();
+
+        if(!this.state.newProfilePicture) {
+            alert('Cannot proceed without an image selected')
+        } else {
+
+        const formData = new FormData();
+        formData.append('file', this.state.newProfilePicture[0]);
         
-        // upload new profile pic in Amazon S3 in same spot as old profile pic
-        // axios.put('user_id.AMAZONS3/profile_picture', 
-        //     {
-        //         user_id: user_id, 
-        //         profile_picture: new_profile_picture
-        //     })
-        // // return the Amazon S3 reference URL string as the response
-        // .then(response => {
-        //     // update profile pic reference in postgres database with response
-        //     axios.put(`/api/user/${user_id}`, {profile_picture: response.data})
-        // })
+        this.setState({
+              profileImgClickedOn: false
+          })
+
+        axios.post(`/api/profile_pic`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }).then(responseS3 => {
+            console.log('amazon S3 response prof pic: ', responseS3.data.Location)
+            axios.put(`/api/user/profile_picture/${this.props.user.user_id}`, {profile_picture: responseS3.data.Location})
+            .then(responseDB => {
+                console.log('db response prof pic: ', responseDB)
+                this.setState({
+                    userInfoToDisplay: responseDB.data,
+                    newProfilePicture: null
+                })
+            }).catch(error => { alert('db error: ', error) })
+            
+        }).catch(error => { alert('submit to s3 error: ', error) });
+      }
+    }
+
+    cancelProfilePicture = (event) => {
+        event.preventDefault();
+        this.setState({
+            newProfilePicture: null,
+            profileImgClickedOn: false
+        })
     }
 
     updateBio = () => {
@@ -75,7 +94,10 @@ class UserInfo extends Component {
     }
 
     render() {
-        let { userInfoToDisplay } = this.state;
+        let { userInfoToDisplay, newProfilePicture, profileImgClickedOn } = this.state;
+        console.log('new prof pic state: ', newProfilePicture)
+        console.log('is clicked on prof pic: ', profileImgClickedOn)
+
         return (
             <div>
                 <div>
@@ -85,7 +107,22 @@ class UserInfo extends Component {
                     ) 
                     ? 
                     <ul className="profile">
-                        <li><img id="camera" src={userInfoToDisplay.profile_picture} alt="Profile"/></li>
+                        <li>
+                            <img id="camera"
+                            src={userInfoToDisplay.profile_picture} alt="Profile"
+                            onClick={this.handleImgClick}/>
+                            {
+                                (profileImgClickedOn)
+                                ?
+                                <div id="swap-picture">
+                                    <input type="file" accept="image/*" onChange={this.handleProfilePicture} />
+                                    <button type="submit" onClick={this.submitFile}>Confirm Update</button>
+                                    <button type="button" onClick={this.cancelProfilePicture}>Cancel</button>
+                                </div>
+                                :
+                                null
+                            }
+                        </li>
                         <li><span>{userInfoToDisplay.username}</span></li>
                     </ul>
                     :

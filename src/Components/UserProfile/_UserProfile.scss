@@ -10,10 +10,11 @@ div {
         padding: 0;
     }
 
-    section {
+    .subtopic-nav  {
         padding: 20px;
+        background: olive;
         nav {
-            background: red;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             @media (min-width: 400px) {
@@ -22,20 +23,59 @@ div {
             
             ul {
                 background: gray;
-                width: 100%;
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                width: 90%;
+                height: 100%;
+                @include centercentercol;
+                justify-content: space-around;
+                align-items: baseline;
+
+                li {
+                    width: 100%;
+                    height: 15vh;
+                    
+                    button {
+                        border: none;
+                        background: none;
+                        @extend %nav-text-color;
+                    }
+                }
 
                 #marbio {
-                    padding: 25px;
-                    @include centercenter;
-                    // background-image: url('/src/icons/marinebio.jpg');
+                    // padding: 25px;
+                    @include centercentercol;
+                    background-image: url('./iconsAndImages/marinebio.jpg');
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    background-position: center;
+
+        
+                }
+
+                #vv {
+                    @include centercentercol;
+                    background-image: url('https://cdn.pixabay.com/photo/2017/09/23/02/49/rescue-vehicle-2777738_1280.jpg');
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    background-position: 50% 75%;
+
+                    button {
+                        border: none;
+                        background: none;
+                        // color: ;
+                    }
+                }
+
+                #strctr {
+                    @include centercentercol;
+                    background-image: url('https://cdn.pixabay.com/photo/2019/03/17/13/07/sea-4060902_1280.jpg');
                     background-size: cover;
                     background-repeat: no-repeat;
                     background-position: center;
                     
+
+                    @media (min-width: 650px) {
+                        background-image: url('https://cdn.pixabay.com/photo/2018/09/30/22/31/pinwheel-3714863_1280.jpg');
+                        background-position: center;
+                    }
 
                     button {
                         border: none;
@@ -43,24 +83,33 @@ div {
                         @extend %nav-text-color;
                     }
                 }
-                #vv {
-                    @include centercenter;
-                    background: $blue;
-                }
-
-                #strctr {
-                    @include centercenter;
-                    background: $blue;
-                }
 
                 #environ {
-                    @include centercenter;
-                    background: $blue;
+                    @include centercentercol;
+                    background: url('https://cdn.pixabay.com/photo/2012/02/27/17/03/background-17520_1280.jpg');
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    background-position: 50% 10%;
+
+                    @media (min-width: 300px) {
+                        background-position: 50% 20%;
+                    }
+
+                    @media (min-width: 360px) {
+                        background-position: 50% 30%;
+                    }
+
+                    @media (min-width: 575px) {
+                        background-position: 50% 42%;
+                    }
                 }
 
                 #unknown {
-                    @include centercenter;
-                    background: purple;
+                    @include centercentercol;
+                    background: url('https://cdn.pixabay.com/photo/2018/09/23/18/14/ship-3698039_1280.jpg');
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    background-position: center;
                 }
                     
             }

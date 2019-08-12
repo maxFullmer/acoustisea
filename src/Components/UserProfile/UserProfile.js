@@ -14,7 +14,7 @@ class UserProfile extends Component {
                 <UserInfo />
             </section>
 
-            <section>
+            <section className="subtopic-nav">
                 <nav>
                     <ul>
                         <li id="marbio">
@@ -27,7 +27,7 @@ class UserProfile extends Component {
                         </li>
                         <li id="strctr">
                             <button type="button" name="structures"
-                            onClick={(event) => this.routeHandler(event)}>Construction</button>
+                            onClick={(event) => this.routeHandler(event)}>Structures</button>
                         </li>
                         <li id="environ"> 
                             <button type="button" name="environmental"

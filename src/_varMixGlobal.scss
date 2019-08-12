@@ -1,4 +1,4 @@
-$gold: #f6c700;
+$uavYellow: #f6c700;
 // $silver: #c0c0c0;
 $silver: #f1eaee;
 // $blue: #005eaa;
@@ -8,18 +8,18 @@ $white: #f1f1f1;
 
 @mixin acoustiseaButton {
     background: $blue;
-    border-radius: 15%;
+    border-radius: 8px;
     border: solid $silver;
-    color: $white
+    color: $white;
 }
 
 %nav-text-color {
-    // text-decoration: none;
     color: $silver;
 }
 
-@mixin centercenter {
+@mixin centercentercol {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }

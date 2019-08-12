@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS dataInfo;
 
 CREATE TABLE users(
     user_id SERIAL PRIMARY KEY,
-    profile_picture TEXT DEFAULT 'https://cdn.pixabay.com/photo/2013/11/01/11/13/dolphin-203875_1280.jpg',
+    profile_picture TEXT DEFAULT 'https://acoustisea-profile-img.s3.us-east-2.amazonaws.com/dolphin-203875_1920.jpg',
     username TEXT NOT NULL,
     password TEXT NOT NULL,
     email TEXT NOT NULL,

@@ -48,7 +48,7 @@ class Authentication extends Component {
     render() {
     const { emailLogin, passLogin, userRegister, passRegister, emailRegister } = this.state;
     return (
-        <div>Authentication
+        <div className="auth-wrapper">
             <div>
                 <input type="text" placeholder="email" name="emailLogin" value={emailLogin}
                     onChange={event => this.textInputHandler(event.target.name, event.target.value)}/>
@@ -59,6 +59,7 @@ class Authentication extends Component {
                 <button onClick={this.login}>Login</button>
                 {/* <ToastContainer /> */}
             </div>
+
             <div>
                 <input type="text" placeholder="username" name="userRegister" value={userRegister}
                     onChange={event => this.textInputHandler(event.target.name, event.target.value)}/>
@@ -71,7 +72,6 @@ class Authentication extends Component {
                 
                 <button onClick={this.register}>Register</button>
             </div>
-            
         </div>
     )
     }
