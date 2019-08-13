@@ -75,23 +75,55 @@ AWS.config.update({
   const s3 = new AWS.S3();
   
     // abstracts function to upload a file returning a promise
-  const uploadFile = (buffer, name, type) => {
-    const params = {
+  const uploadProfile = (buffer, name, type) => {
+    const profileParams = {
       ACL: 'public-read',
       Body: buffer,
       Bucket: S3_BUCKET_PROFILE_IMG,
       ContentType: type.mime,
       Key: `${name}.${type.ext}`
     };
-    return s3.upload(params).promise();
+    return s3.upload(profileParams).promise();
   };
 
   
   // Upload Profile Picture:
   app.post(`/api/profile_pic`, (request, response) => {
-    const form = new multiparty.Form();
-      form.parse(request, async (error, fields, files) => {
-        if (error) throw new Error(error);
+    const profileForm = new multiparty.Form();
+      profileForm.parse(request, async (err, fields, files) => {
+        if (err) throw new Error(err);
+        try {
+          const path = files.file[0].path;
+          const buffer = fs.readFileSync(path);
+          const type = fileType(buffer);
+          const timestamp = Date.now().toString();
+          const fileName = `bucketFolder/${timestamp}-lg`;
+          const data = await uploadProfile(buffer, fileName, type);
+          return response.status(200).send(data);
+        } catch (err) {
+            console.log(err)
+          return response.status(400).send(err);
+        }
+      });
+  });
+
+// abstracts function to upload a file returning a promise
+const uploadFile = (buffer, name, type) => {
+    const fileParams = {
+        ACL: 'public-read',
+        Body: buffer,
+        Bucket: S3_BUCKET_UA_FILES,
+        ContentType: type.mime,
+        Key: `${name}.${type.ext}`
+    };
+    return s3.upload(fileParams).promise();
+    };
+
+// Upload Data File:
+app.post(`/api/data_file`, (request, response) => {
+    const fileForm = new multiparty.Form();
+      fileForm.parse(request, async (err, fields, files) => {
+        if (err) throw new Error(err);
         try {
           const path = files.file[0].path;
           const buffer = fs.readFileSync(path);
@@ -100,12 +132,30 @@ AWS.config.update({
           const fileName = `bucketFolder/${timestamp}-lg`;
           const data = await uploadFile(buffer, fileName, type);
           return response.status(200).send(data);
-        } catch (error) {
-            console.log(error)
-          return response.status(400).send(error);
+        } catch (err) {
+            console.log(err)
+          return response.status(400).send(err);
         }
       });
   });
+
+// Retrieve Data File:
+app.get(`/api/data_file`, (request, response) => {
+    let { filename } = request.body;
+    let params = {
+        Bucket: S3_BUCKET_UA_FILES,
+        Key: filename
+    };
+    s3.getObject(params, function(err, data) {
+        if (err) {
+            console.log(err);
+            response.status(400).send(err)
+        }
+        else {
+            response.status(200).send(data)
+        }
+    })
+})
 
 // Delete Profile Picture:
 

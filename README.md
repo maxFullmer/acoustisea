@@ -3,13 +3,19 @@
 ### Acoustisea is a GitHub like responsive web app for underwater acoustic data files. 
 
 ## Features:  
-- Users can upload underwater acoustic data on their own page.
-- Users can update profile info and descriptions of their underwater acoustic data.
+- Users can upload underwater acoustic data and see descriptions on their own page.
+- Users can update profile info in addition to descriptions of their underwater acoustic data.
 - Users can delete their own underwater acoustic data.
-- Users can be routed to subtopic page to view acoustic data associated with that subtopic. (Users themselves would tag what subtopic their data falls under when uploading.)
-- User can be routed to another user's profile/data page from the associated acoustic data displayed in subtopic pages.
-- Users can download posted underwater acoustic data.
-- Must be logged in to download file.
+- Users can be routed to category pages to view acoustic data associated with that category. (Users themselves tag what category their data falls under when uploading.)
+- User can be routed to another user's profile/data page from the associated acoustic data displayed in category pages.
+- Users can download posted underwater acoustic data, but must be logged in to download file.
+
+## Planned Improvements and Features:
+- Delete old profile pic from storage when user uploads new profile pic.
+- Add a list of top contributers per category
+- Add Educational Link Carousel in each category page
+- Add a page that lets users browse all other users
+- Add a metric for how many times file has been downloaded.
 
 ## Front End
 

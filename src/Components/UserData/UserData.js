@@ -18,6 +18,7 @@ class UserData extends Component {
             isEnviro: false,
             isUnknown: false,
             dataSummary: "",
+            file: null,
             showFormAdd: false,
             showFormUpdate: false,
             selectedDataInfoMapIndex: null,
@@ -33,6 +34,8 @@ class UserData extends Component {
             })
         })
     }
+
+    // FRONT END MANAGEMENT FUNCTIONS
 
     subtopicHandler = (event) => {
         this.setState({
@@ -55,11 +58,9 @@ class UserData extends Component {
 
     toggleFormRenderAdd = (event) => {
         event.preventDefault();
+
         if (!this.state.showFormUpdate) {
-        this.setState(
-            {
-                showFormAdd: !this.state.showFormAdd,
-            })
+            this.setState( {showFormAdd: !this.state.showFormAdd} )
         }
     }
 
@@ -75,49 +76,65 @@ class UserData extends Component {
         }    
     }
 
-    // hideFormOnCancelClick = (event) => {
-    //     event.preventDefault();
-    //     this.setState(
-    //         {
-    //             showFormUpdate: !this.state.showFormUpdate,
-    //             selectedDataInfo: keyORindex
-    //         })
-    // }
+    // DATABASE REQUESTS
 
-    // HEROKU/POSTGRES DATABASE REQUESTS
-
-    postDataInfo = (event) => {
-        event.preventDefault();
-
-        let { username, user_id } = this.props.user;
-        let { dataTitle, file_type, isMarBio, isVaV, isStrctr, isEnviro, isUnknown, dataSummary } = this.state;
-        let subtopic = 
-            isMarBio ? 'marBio' : 
-            isVaV ? 'VaV' :
-            isStrctr ? 'strctr' :
-            isEnviro ? 'enviro' :
-            isUnknown ? 'unknown' :
-            null;
-        
-        console.log('subtopic selected inside post function onSubmit', subtopic)
-
-        axios.post('/api/user_data_form', 
-            {
-                username: username, 
-                user_id: user_id, 
-                title: dataTitle, 
-                file_type: file_type, 
-                subtopic: subtopic, 
-                dataSummary: dataSummary
-            })
-        .then(response => {
-            this.setState({
-                dataInfoToDisplay: [ ...this.state.dataInfoToDisplay, response.data],
-                showFormAdd: false
-            })
-        })
+    handleFileUpload = (event) => {
+        this.setState({file: event.target.files});
     }
 
+    postDataInfoAndFile = (event) => {
+        event.preventDefault();
+
+        if (!this.state.file) {
+            alert('Cannot proceed without a file selected')
+        } 
+        else {
+            let { username, user_id } = this.props.user;
+            let { dataTitle, file_type, isMarBio, isVaV, isStrctr, isEnviro, isUnknown, dataSummary } = this.state;
+            let subtopic = 
+                isMarBio ? 'marBio' : 
+                isVaV ? 'VaV' :
+                isStrctr ? 'strctr' :
+                isEnviro ? 'enviro' :
+                isUnknown ? 'unknown' :
+                null;
+            
+            console.log('subtopic selected inside upload file', subtopic)
+
+            let formData = new FormData();
+            formData.append('file', this.state.file[0]);
+            
+            axios.post(`/api/data_file`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+            .then(response => {
+                console.log('upload file S3 response: ', response)
+
+                axios.post('/api/user_data_form', 
+                {
+                    username: username, 
+                    user_id: user_id, 
+                    title: dataTitle, 
+                    file_type: file_type, 
+                    subtopic: subtopic, 
+                    dataSummary: dataSummary
+                })
+                .then(response => {
+                    console.log('upload file info db response: ')
+
+                    this.setState({
+                        dataInfoToDisplay: [ ...this.state.dataInfoToDisplay, response.data],
+                        showFormAdd: false
+                    })
+                })
+                .catch(error => {console.log(error)} )
+            })
+            .catch(error => {console.log(error)} );
+        }
+    }
+        
     updateDataInfo = (event) => {
         event.preventDefault();
         
@@ -148,14 +165,15 @@ class UserData extends Component {
             console.log('update response', response)
             let newDataArray = dataInfoToDisplay.slice();
             newDataArray[selectedDataInfoMapIndex] = response.data;
-            this.setState({
-                dataInfoToDisplay: newDataArray
-            })
+
+            this.setState( {dataInfoToDisplay: newDataArray} )
         })
     }
 
     deleteDataInfo = (event, dataId) => {
         event.preventDefault();
+
+
 
         axios.delete(`/api/user_data/${this.props.user.user_id}?data_id=${dataId}`)
         .then(response => {
@@ -165,7 +183,8 @@ class UserData extends Component {
         })
     }
 
-    // AMAZON S3 REQUESTS
+
+
 
     // downloadS3 = () => {
     //     if(this.props.user) {
@@ -191,6 +210,7 @@ class UserData extends Component {
     render() {
         let { dataInfoToDisplay, showFormAdd, showFormUpdate, selectedDataInfoMapIndex } = this.state;
 
+        // FORM
 
         let addOrUpdateForm = 
              (
@@ -251,7 +271,9 @@ class UserData extends Component {
                             (showFormAdd && !showFormUpdate)
                             ?
                             <div>
-                                <button id="submitadd" type="submit" onClick={(event) => this.postDataInfo(event)}>Submit</button>
+                                <p>Select your file to upload</p>
+                                <input type="file" onChange={this.handleFileUpload} />
+                                <button id="submitadd" type="submit" onClick={(event) => this.postDataInfoAndFile(event)}>Submit</button>
                                 <button id="canceladd" type="button" onClick={(event) => this.toggleFormRenderAdd(event)}>Cancel</button>
                             </div>
                             :
@@ -261,10 +283,11 @@ class UserData extends Component {
                             </div>
                             }
                         </div>
-                        
                     </form> 
                 </div>
         )
+
+        // DATA INFO
 
         let mappedUserData = dataInfoToDisplay.map((dataObj, index) => {
             return (
@@ -312,14 +335,8 @@ class UserData extends Component {
             )
         })        
 
-        // console.log('title', this.state.dataTitle)
-        // console.log('file_type', this.state.file_type)
-        // console.log('isMarBio', this.state.isMarBio)
-        // console.log('isVaV', this.state.isVaV)
-        // console.log('data description', this.state.dataSummary)
-        console.log('data Info array: ', this.state.dataInfoToDisplay)
+        // PUTTING IT ALL TOGETHER
 
-        
         return (
             <div>
                 <div>{mappedUserData}</div>
@@ -347,7 +364,6 @@ function mapReduxStateToProps(reduxState){
     return reduxState
 }
 
-//since dispatch is a prop of the store, we imported the action creators from a reducer
 const mapDispatchToProps = {
     getUserSession
 }

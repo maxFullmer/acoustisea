@@ -25,6 +25,7 @@ class UserInfo extends Component {
             });
         });
     }
+
     //Amazon S3 changing profile Pic
 
     handleImgClick = (event) => {
@@ -41,7 +42,7 @@ class UserInfo extends Component {
             });
         }
 
-    submitFile = (event) => {
+    submitProfilePicture = (event) => {
         console.log('hit submit')
         event.preventDefault();
 
@@ -49,7 +50,7 @@ class UserInfo extends Component {
             alert('Cannot proceed without an image selected')
         } else {
 
-        const formData = new FormData();
+        let formData = new FormData();
         formData.append('file', this.state.newProfilePicture[0]);
         
         this.setState({
@@ -82,6 +83,8 @@ class UserInfo extends Component {
             profileImgClickedOn: false
         })
     }
+
+    // DATABASE REQUESTS
 
     updateBio = () => {
         let { biography } = this.state;
@@ -116,7 +119,7 @@ class UserInfo extends Component {
                                 ?
                                 <div id="swap-picture">
                                     <input type="file" accept="image/*" onChange={this.handleProfilePicture} />
-                                    <button type="submit" onClick={this.submitFile}>Confirm Update</button>
+                                    <button type="submit" onClick={this.submitProfilePicture}>Confirm Update</button>
                                     <button type="button" onClick={this.cancelProfilePicture}>Cancel</button>
                                 </div>
                                 :
