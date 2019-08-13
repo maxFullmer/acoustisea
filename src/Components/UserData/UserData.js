@@ -173,7 +173,7 @@ class UserData extends Component {
     deleteDataInfo = (event, dataId) => {
         event.preventDefault();
 
-
+        // axios call to s3 and then db
 
         axios.delete(`/api/user_data/${this.props.user.user_id}?data_id=${dataId}`)
         .then(response => {
