@@ -2,6 +2,7 @@
 
 .auth-wrapper {
     @include centercentercol;
+    // background: $blue;
     // background: url('https://cdn.pixabay.com/photo/2014/04/04/14/56/background-313418_1280.jpg');
     // background-repeat: repeat;
     // background-size: cover;
@@ -17,6 +18,10 @@
         width: 80%;
         // background: red;
         margin: 4%;
+
+        label {
+            color: white;
+        }
         
         input {
             width: 70%;

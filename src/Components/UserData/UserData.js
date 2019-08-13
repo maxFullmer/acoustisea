@@ -20,7 +20,8 @@ class UserData extends Component {
             dataSummary: "",
             showFormAdd: false,
             showFormUpdate: false,
-            selectedDataInfo: null
+            selectedDataInfoMapIndex: null,
+            selectedDataInfoId: null
         }
     }
 
@@ -62,13 +63,14 @@ class UserData extends Component {
         }
     }
 
-    toggleFormRenderUpdate = (event, keyORindex = null) => {
+    toggleFormRenderUpdate = (event, dataId, keyORindex = null) => {
         event.preventDefault();
         if(!this.state.showFormAdd) {
         this.setState(
             {
                 showFormUpdate: !this.state.showFormUpdate,
-                selectedDataInfo: keyORindex
+                selectedDataInfoMapIndex: keyORindex,
+                selectedDataInfoId: dataId
             })
         }    
     }
@@ -110,16 +112,17 @@ class UserData extends Component {
             })
         .then(response => {
             this.setState({
-                dataInfoToDisplay: [ ...this.state.dataInfoToDisplay, response.data]
+                dataInfoToDisplay: [ ...this.state.dataInfoToDisplay, response.data],
+                showFormAdd: false
             })
         })
     }
 
-    updateDataInfo = (event, dataId, keyOrIndex) => {
+    updateDataInfo = (event) => {
         event.preventDefault();
         
         let { user_id } = this.props.user;
-        let { dataInfoToDisplay, dataTitle, file_type, isMarBio, isVaV, isStrctr, isEnviro, isUnknown, dataSummary } = this.state;
+        let { dataInfoToDisplay, dataTitle, file_type, isMarBio, isVaV, isStrctr, isEnviro, isUnknown, dataSummary, selectedDataInfoId, selectedDataInfoMapIndex } = this.state;
         let subtopic = 
             isMarBio ? 'marBio' : 
             isVaV ? 'VaV' :
@@ -128,9 +131,9 @@ class UserData extends Component {
             isUnknown ? 'unknown' :
             null;
 
-        console.log('data_id: ', dataId)
+        console.log('data_id: ', selectedDataInfoId)
         console.log('session user for delete: ', this.props.user.user_id)
-        console.log('key/index: ', keyOrIndex)
+        console.log('key/index: ', selectedDataInfoMapIndex)
 
         axios.put('/api/user_data_form', 
         {
@@ -138,12 +141,15 @@ class UserData extends Component {
             file_type: file_type, 
             subtopic: subtopic, 
             dataSummary: dataSummary,
-            data_id: dataId,
+            data_id: selectedDataInfoId,
             user_id: user_id
         })
         .then(response => {
+            console.log('update response', response)
+            let newDataArray = dataInfoToDisplay.slice();
+            newDataArray[selectedDataInfoMapIndex] = response.data;
             this.setState({
-                dataInfoToDisplay: dataInfoToDisplay.splice(keyOrIndex,1,response.data)
+                dataInfoToDisplay: newDataArray
             })
         })
     }
@@ -183,10 +189,12 @@ class UserData extends Component {
     
 
     render() {
-        let { dataInfoToDisplay, showFormAdd, showFormUpdate, selectedDataInfo } = this.state;
+        let { dataInfoToDisplay, showFormAdd, showFormUpdate, selectedDataInfoMapIndex } = this.state;
+
+
         let addOrUpdateForm = 
              (
-                <div>
+                <div >
                     <form>
                         <p>Title {"*"}:</p>
                         <div>
@@ -201,26 +209,36 @@ class UserData extends Component {
                         </div>
                         
                         <p>Category {"*"}:</p>
-                        <div>
-                            <input type="radio" name="category" id="isMarBio" checked={this.state.isMarBio}
-                            onChange={event => this.subtopicHandler(event)}/>
-                            <label htmlFor="isMarBio">Marine Bioacoustics</label>
-                        
-                            <input type="radio" name="category" id="isVaV" checked={this.state.isVaV}
-                            onChange={event => this.subtopicHandler(event)}/>
-                            <label htmlFor="isVaV">Vessels {"&"} Vehicles</label>
-                        
-                            <input type="radio" name="category" id="isStrctr" checked={this.state.isStrctr}
-                            onChange={event => this.subtopicHandler(event)}/>
-                            <label htmlFor="isStrctr">Structures</label>
-                            
-                            <input type="radio" name="category" id="isEnviron" checked={this.state.isEnviron}
-                            onChange={event => this.subtopicHandler(event)}/>
-                            <label htmlFor="isEnviron">Environmental</label>
+                        <div id="category-choice">
+                            <div>
+                                <label htmlFor="isMarBio">Marine Bioacoustics</label>
+                                <input type="radio" name="category" id="isMarBio" checked={this.state.isMarBio}
+                                onChange={event => this.subtopicHandler(event)}/>
+                            </div>
 
-                            <input type="radio" name="category" id="isUnknown" checked={this.state.isUnknown}
-                            onChange={event => this.subtopicHandler(event)}/>
-                            <label htmlFor="isUnknown">Unknown</label>
+                            <div>
+                                <label htmlFor="isVaV">Vessels {"&"} Vehicles</label>
+                                <input type="radio" name="category" id="isVaV" checked={this.state.isVaV}
+                                onChange={event => this.subtopicHandler(event)}/>
+                            </div>
+
+                            <div>
+                                <label htmlFor="isStrctr">Structures</label>
+                                <input type="radio" name="category" id="isStrctr" checked={this.state.isStrctr}
+                                onChange={event => this.subtopicHandler(event)}/>
+                            </div>
+
+                            <div>
+                                <label htmlFor="isEnviron">Environmental</label>
+                                <input type="radio" name="category" id="isEnviron" checked={this.state.isEnviron}
+                                onChange={event => this.subtopicHandler(event)}/>
+                            </div>
+
+                            <div>
+                                <label htmlFor="isUnknown">Unknown</label>
+                                <input type="radio" name="category" id="isUnknown" checked={this.state.isUnknown}
+                                onChange={event => this.subtopicHandler(event)}/>
+                            </div>
                         </div>
 
                         <p>Please add a description of your data</p>
@@ -248,16 +266,30 @@ class UserData extends Component {
                 </div>
         )
 
-        
         let mappedUserData = dataInfoToDisplay.map((dataObj, index) => {
             return (
-                <div key={index}>
+                <div key={index} className="data-container">
                     <ul>
-                        <li>{dataObj.title}</li>
-                        <li>{dataObj.file_type}</li>
-                        <li>{dataObj.subtopic}</li>
-                        <li>{dataObj.upload_date.slice(0,10)}</li>
-                        <li>{dataObj.data_summary}</li>
+                        <li>
+                            <div>Title</div>
+                            <div>{dataObj.title}</div>
+                        </li>
+                        <li>
+                            <div>File Type</div>
+                            <div className="the-meat">{dataObj.file_type}</div>
+                        </li>
+                        <li>
+                            <div>Category</div>
+                            <div className="the-meat">{dataObj.subtopic}</div>
+                        </li>
+                        <li>
+                            <div>Uploaded On</div>
+                            <div className="the-meat">{dataObj.upload_date.slice(0,10)}</div>
+                        </li>
+                        <li>
+                            <div>Description</div>
+                            <div className="the-meat">{dataObj.data_summary}</div>
+                        </li>
                         {/* <li><button onClick={this.downloadS3}>DOWNLOAD</button></li> */}
                     </ul>
                     <div>{
@@ -265,12 +297,12 @@ class UserData extends Component {
                             && this.props.user.user_id === +this.props.match.params.user_id
                             ) 
                             ?
-                                (selectedDataInfo === index && showFormUpdate && !showFormAdd) 
+                                (selectedDataInfoMapIndex === index && showFormUpdate && !showFormAdd) 
                                 ?
                                 addOrUpdateForm
                                 :
                                 <div>
-                                    <button type="submit" onClick={(event) => this.toggleFormRenderUpdate(event, index)}>EDIT</button>
+                                    <button type="submit" onClick={(event) => this.toggleFormRenderUpdate(event, dataObj.data_id, index)}>EDIT</button>
                                     <button type="submit" onClick={(event) => this.deleteDataInfo(event, dataObj.data_id)}>DELETE</button>
                                 </div>
                             :
@@ -278,13 +310,14 @@ class UserData extends Component {
                     </div>
                 </div>
             )
-        })
+        })        
 
         // console.log('title', this.state.dataTitle)
         // console.log('file_type', this.state.file_type)
         // console.log('isMarBio', this.state.isMarBio)
         // console.log('isVaV', this.state.isVaV)
         // console.log('data description', this.state.dataSummary)
+        console.log('data Info array: ', this.state.dataInfoToDisplay)
 
         
         return (

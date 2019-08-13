@@ -133,7 +133,7 @@ class UserInfo extends Component {
                 </div>
 
                 <div>
-                    <h2>User Bio</h2>
+                    <h2>User Bio: </h2>
                     <span>{userInfoToDisplay.biography}</span>
                 </div>
             </div>

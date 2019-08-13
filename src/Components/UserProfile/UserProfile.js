@@ -15,6 +15,7 @@ class UserProfile extends Component {
             </section>
 
             <section className="subtopic-nav">
+                <span>Explore:</span>
                 <nav>
                     <ul>
                         <li id="marbio">

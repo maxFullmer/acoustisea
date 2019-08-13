@@ -50,9 +50,11 @@ class Authentication extends Component {
     return (
         <div className="auth-wrapper">
             <div>
+                <label htmlFor="emailLogin">Email: </label>
                 <input type="text" placeholder="email" name="emailLogin" value={emailLogin}
                     onChange={event => this.textInputHandler(event.target.name, event.target.value)}/>
                 
+                <label htmlFor="passLogin">Password: </label>
                 <input type="password" placeholder="password" name="passLogin" value={passLogin}
                     onChange={event => this.textInputHandler(event.target.name, event.target.value)}/>
                 
@@ -61,12 +63,15 @@ class Authentication extends Component {
             </div>
 
             <div>
+                <label htmlFor="userRegister">Username: </label>
                 <input type="text" placeholder="username" name="userRegister" value={userRegister}
                     onChange={event => this.textInputHandler(event.target.name, event.target.value)}/>
                 
+                <label htmlFor="passRegister">Password: </label>
                 <input type="password" placeholder="password" name="passRegister" value={passRegister}
                     onChange={event => this.textInputHandler(event.target.name, event.target.value)}/>
                 
+                <label htmlFor="emailRegister">Email: </label>
                 <input type="text" placeholder="email" name="emailRegister" value={emailRegister}
                     onChange={event => this.textInputHandler(event.target.name, event.target.value)}/>
                 

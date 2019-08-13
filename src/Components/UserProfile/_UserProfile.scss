@@ -1,7 +1,7 @@
 @import '../../_varMixGlobal.scss';
 
 div {
-    width: 100%;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -12,17 +12,13 @@ div {
 
     .subtopic-nav  {
         padding: 20px;
-        background: olive;
+        // background: olive;
         nav {
             height: 100vh;
             display: flex;
             flex-direction: column;
-            @media (min-width: 400px) {
-                width: 80%;
-            }
             
             ul {
-                background: gray;
                 height: 100%;
                 @include centercentercol;
                 justify-content: space-around;
@@ -31,11 +27,12 @@ div {
                 li {
                     width: 100%;
                     height: 15vh;
-                    
+
                     button {
                         border: none;
                         background: none;
                         @extend %nav-text-color;
+                        font-weight: 700;
                     }
                 }
 
@@ -46,8 +43,6 @@ div {
                     background-size: cover;
                     background-repeat: no-repeat;
                     background-position: center;
-
-        
                 }
 
                 #vv {
@@ -55,13 +50,24 @@ div {
                     background-image: url('https://cdn.pixabay.com/photo/2017/09/23/02/49/rescue-vehicle-2777738_1280.jpg');
                     background-size: cover;
                     background-repeat: no-repeat;
-                    background-position: 50% 75%;
+                    background-position: 50% 100%;
+                    font-weight: 900;
+                    font-size: 1.2em;
+                    filter: brightness(90%);
 
                     button {
-                        border: none;
-                        background: none;
-                        // color: ;
+                        color: #fd6969;
                     }
+
+                    @media (min-width: 360px) {
+                            background-position: 50% 90%;
+                        }
+
+                    @media (min-width: 360px) {
+                            background-position: 50% 80%;
+                        }
+
+ 
                 }
 
                 #strctr {
@@ -69,19 +75,30 @@ div {
                     background-image: url('https://cdn.pixabay.com/photo/2019/03/17/13/07/sea-4060902_1280.jpg');
                     background-size: cover;
                     background-repeat: no-repeat;
-                    background-position: center;
+                    background-position: 50% 40%;
+                    font-weight: 900;
+                    font-size: 1.2em;
                     
-
-                    @media (min-width: 650px) {
-                        background-image: url('https://cdn.pixabay.com/photo/2018/09/30/22/31/pinwheel-3714863_1280.jpg');
-                        background-position: center;
-                    }
-
                     button {
-                        border: none;
-                        background: none;
-                        @extend %nav-text-color;
+                        color: #fb5151;
                     }
+
+                    @media (min-width: 300px) {
+                        background-position: 50% 75%;
+                    }
+                    @media (min-width: 450px) {
+                        background-position: 50% 70%;
+                    }
+                    @media (min-width: 600px) {
+                        background-image: url('https://cdn.pixabay.com/photo/2018/09/30/22/31/pinwheel-3714863_1280.jpg');
+                        background-position: 50% 52%;
+
+                        button {
+                            color: brown;
+                        }
+                    }
+
+                    
                 }
 
                 #environ {

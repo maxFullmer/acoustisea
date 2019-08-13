@@ -82,19 +82,43 @@ class PublicData extends Component {
     render() {
         console.log('props from subtopic display to public data component: ', this.props)
         let { publicDataToDisplay } = this.state;
+        let { subtopic } = this.props;
+
+        let headerIsSubtopic = (subtopic === 'marinebioacoustics') ? 'Marine Bioacoustics': 
+        (subtopic === 'vesselsandvehicles') ? 'Vessels & Vehicles' :
+        (subtopic === 'structures') ? 'Structures' :
+        (subtopic === 'environmental') ? 'Environmental' :
+        (subtopic === 'unknown') ? 'Unknown' :
+        null;
+
         let mappedPublicData = publicDataToDisplay.map((publicDataObj, index) => {
             return (
-                <div key={index}>
+                <div key={index} className="data-container">
                     <ul>
-                        <li>{publicDataObj.title}</li>
-                        <li>{publicDataObj.file_type}</li>
-                        <li>{publicDataObj.upload_date.slice(0,10)}</li>
-                        <li>{publicDataObj.data_summary}</li>
-                        {/* link to user page when clicking on user name VVV */}
                         <li>
-                            <span onClick={(event) => this.goToOtherUserPage(event, publicDataObj.user_id)}>
+                            <div>Title</div>
+                            <div>{publicDataObj.title}</div>
+                        </li>
+                        <li>
+                            <div>File Type</div>
+                            <div>{publicDataObj.file_type}</div>
+                        </li>
+                        <li>
+                            <div>Category</div>
+                            <div>{publicDataObj.subtopic}</div>
+                        </li>
+                        <li>
+                            <div>Uploaded On</div>
+                            <div>{publicDataObj.upload_date.slice(0,10)}</div>
+                        </li>
+                        <li>
+                            <div>Description</div>
+                            <div>{publicDataObj.data_summary}</div>
+                        </li>
+                        <li>
+                            <div onClick={(event) => this.goToOtherUserPage(event, publicDataObj.user_id)}>
                                 {publicDataObj.username}
-                            </span>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -102,6 +126,7 @@ class PublicData extends Component {
         })
         return (
             <div>
+                <div>{headerIsSubtopic}</div>
                 {mappedPublicData}
             </div>
         );

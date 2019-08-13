@@ -1,1 +1,36 @@
 @import '../../_varMixGlobal.scss';
+
+form {
+    border: solid $uavYellow 4px;
+    border-radius: 8px;
+    p {
+        color: $silver;
+    }
+    #category-choice {
+        div {
+            @include centercentercol;
+        }
+    }
+}
+
+.data-container {
+    margin: 5px;
+    color: black;
+    ul {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        border: solid $uavYellow 4px;
+        border-radius: 8px;
+        background: grey;
+
+        li {
+            // width: 30%;
+            background: orange;
+
+            div {
+                border: solid 2px black;
+            }
+        }
+    }
+}

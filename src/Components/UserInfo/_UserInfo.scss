@@ -9,7 +9,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 1.5em;
+    font-size: 1.8em;
 
     li {
         width: 80%;
@@ -43,7 +43,7 @@
             text-align: center;
             min-width: 175px;
             max-width: 225px;
-            color: $white + 50;
+            color: $white;
             // color: $silver + 50;
         }
     }
