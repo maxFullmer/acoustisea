@@ -11,8 +11,11 @@ div {
     }
 
     .subtopic-nav  {
-        padding: 20px;
-        // background: olive;
+        padding: 15px;
+
+        span {
+            font-size: 1.5em;
+        }
         nav {
             height: 100vh;
             display: flex;
@@ -37,7 +40,6 @@ div {
                 }
 
                 #marbio {
-                    // padding: 25px;
                     @include centercentercol;
                     background-image: url('./iconsAndImages/marinebio.jpg');
                     background-size: cover;
@@ -59,11 +61,11 @@ div {
                         color: #fd6969;
                     }
 
-                    @media (min-width: 360px) {
-                            background-position: 50% 90%;
+                    @media (min-width: 300px) {
+                            background-position: 50% 95%;
                         }
 
-                    @media (min-width: 360px) {
+                    @media (min-width: 561px) {
                             background-position: 50% 80%;
                         }
 
@@ -84,7 +86,7 @@ div {
                     }
 
                     @media (min-width: 300px) {
-                        background-position: 50% 75%;
+                        background-position: 50% 90%;
                     }
                     @media (min-width: 450px) {
                         background-position: 50% 70%;

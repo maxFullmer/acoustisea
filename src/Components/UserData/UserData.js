@@ -308,8 +308,8 @@ class UserData extends Component {
                 <div key={index} className="data-container">
                     <ul>
                         <li>
-                            <div className="col-name">Title</div>
-                            <div className="the-meat">{dataObj.title}</div>
+                            <div className="col-name ">Title</div>
+                            <div className="the-meat title">{dataObj.title}</div>
                         </li>
                         <li>
                             <div className="col-name">File Type</div>

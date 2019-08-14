@@ -51,17 +51,31 @@
 }
 
 #bio {
+    width: 97%;
+
+    @media (min-width: 500) and (max-width: 599px) {
+        width: 98%;
+    }
+
+    @media (min-width: 600) {
+        width: 100%;
+    }
     h2 {
         margin: 8px;
+        font-size: 1.5em;
     }
 
     div {
         span {
             margin: 8px;
             color: black;
-            background: $white;
+            background: $silver;
             @include databorder;
             padding: 6px;
+            font-family: 'Poppins, sans-serif';
+            text-align: center;
+            font-style: italic;
+            font-weight: 700;
         }
     }
 }

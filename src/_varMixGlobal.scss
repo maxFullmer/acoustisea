@@ -13,10 +13,6 @@ $white: #f1f1f1;
     color: $white;
 }
 
-%nav-text-color {
-    color: $silver;
-}
-
 @mixin centercentercol {
     display: flex;
     flex-direction: column;
@@ -27,4 +23,14 @@ $white: #f1f1f1;
 @mixin databorder {
     border: solid 4px $uavYellow;
     border-radius: 8px;
+}
+
+%nav-text-color {
+    color: $silver;
+}
+
+%fixed-background {
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
 }
