@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { getUserSession } from '../../redux/reducers/userReducer.js';
-// import './_Header.scss'
-import axios from 'axios'
+import axios from 'axios';
+import logo from '../../iconsAndImages/trident.png';
 
 class Header extends Component {
     componentDidMount() {
@@ -37,12 +37,12 @@ class Header extends Component {
             (!this.props.user) 
             ?
                 <header>
-                    <img onClick={this.siteHome} src="/public/trident.png" alt="trident.png" />
+                    <img onClick={this.siteHome} src={logo} alt="trident.png" height="32px" width="32px"/>
                 </header>
             : 
                 <header>
                     <button onClick={this.userHome}>User Home</button>
-                    <img src="/public/trident.png" alt="trident.png" />
+                    <img src={logo} alt="trident.png" height="32px" width="32px"/>
                     <button onClick={this.logout}>Logout</button>
                 </header>
         ) 

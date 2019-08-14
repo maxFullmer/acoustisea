@@ -17,6 +17,15 @@ body {
 
 button {
     @include acoustiseaButton;
-    margin: 4%;
+    margin: 8px;
     font-size: 1.2em;
+}
+
+button:hover {
+    background: $uavYellow;
+}
+
+button:active {
+    filter: alpha(opacity=50);
+    opacity: 0.5;
 }

@@ -3,7 +3,7 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { getUserSession } from '../../redux/reducers/userReducer.js';
-// import './_UserData.scss';
+import fileDownload from 'js-file-download';
 
 class UserData extends Component {
     constructor(props) {
@@ -106,7 +106,8 @@ class UserData extends Component {
             
             axios.post(`/api/data_file`, formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'multipart/form-data',
+                    'Content-Disposition': `attachment; filename=${dataTitle}.${file_type}`
                 }
             })
             .then(response => {
@@ -119,7 +120,9 @@ class UserData extends Component {
                     title: dataTitle, 
                     file_type: file_type, 
                     subtopic: subtopic, 
-                    dataSummary: dataSummary
+                    dataSummary: dataSummary,
+                    s3link: response.data.Location,
+                    s3key: response.data.Key
                 })
                 .then(response => {
                     console.log('upload file info db response: ')
@@ -166,7 +169,11 @@ class UserData extends Component {
             let newDataArray = dataInfoToDisplay.slice();
             newDataArray[selectedDataInfoMapIndex] = response.data;
 
-            this.setState( {dataInfoToDisplay: newDataArray} )
+            this.setState( 
+                {
+                    dataInfoToDisplay: newDataArray,
+                    showFormUpdate: false
+                } )
         })
     }
 
@@ -183,27 +190,34 @@ class UserData extends Component {
         })
     }
 
-
-
-
-    // downloadS3 = () => {
-    //     if(this.props.user) {
-    //         axios.get('AMAZONS3',
-    //         // dataObj belongs to mapping data Info objects from the dataArray
-    //         {
-    //             data_id: dataObj.data_id,
-    //             username: dataObj.username,
-    //             user_id: dataObj.user_id
-    //         })
-    //         .then(response => {
-    //             // figure out how to get the file to the requester... => something: response
-    //         })
-    //     } else {
-    //         //get toastify up in here
-    //         alert('Please log in/register to download')
-    //         // show login button to redirect to login/register
-    //     }
-    // }
+    // DOWNLOAD FILE
+    downloadS3 = (event, dataLink, dataKey, fileName) => {
+        event.preventDefault();
+        if(!this.props.user) {
+            //get toastify up in here
+            alert('Please log in/register to download')
+            // show login button to redirect to login/register
+        } else {
+            console.log(dataKey)
+            axios.get(`/api/data_file?s3key=${dataKey}`)
+            .then(response => {
+                // figure out how to get the file to the requester... => something: response
+            console.log(response)
+            console.log(fileName)
+            fileDownload(response.data, fileName)
+            // fileDownload(dataLink, fileName)
+            // const url = window.URL.createObjectURL(new Blob([dataLink]));
+            const url = dataLink;
+            let tempLink = document.createElement('a');
+            tempLink.href = url;
+            tempLink.setAttribute('download', `${fileName}`)
+            tempLink.setAttribute('target', '_blank')
+            document.body.appendChild(tempLink);
+            tempLink.click();
+            document.body.removeChild(tempLink);    
+            })
+        }
+    }
 
     
 
@@ -222,7 +236,7 @@ class UserData extends Component {
                             onChange={event => this.textAreaHandler(event)} />    
                         </div>
 
-                        <p>Filename extension (i.e.: .zip, .png, .mat, ...) {"*"}:</p>
+                        <p>Filename extension (.pdf, .docx, or any image format) {"*"}:</p>
                         <div>
                         <textarea name="file_type" rows="1" cols="7" value={this.state.file_type}
                             onChange={event => this.textAreaHandler(event)} />    
@@ -249,8 +263,8 @@ class UserData extends Component {
                             </div>
 
                             <div>
-                                <label htmlFor="isEnviron">Environmental</label>
-                                <input type="radio" name="category" id="isEnviron" checked={this.state.isEnviron}
+                                <label htmlFor="isEnviro">Environmental</label>
+                                <input type="radio" name="category" id="isEnviro" checked={this.state.isEnviro}
                                 onChange={event => this.subtopicHandler(event)}/>
                             </div>
 
@@ -294,26 +308,26 @@ class UserData extends Component {
                 <div key={index} className="data-container">
                     <ul>
                         <li>
-                            <div>Title</div>
-                            <div>{dataObj.title}</div>
+                            <div className="col-name">Title</div>
+                            <div className="the-meat">{dataObj.title}</div>
                         </li>
                         <li>
-                            <div>File Type</div>
+                            <div className="col-name">File Type</div>
                             <div className="the-meat">{dataObj.file_type}</div>
                         </li>
                         <li>
-                            <div>Category</div>
+                            <div className="col-name">Category</div>
                             <div className="the-meat">{dataObj.subtopic}</div>
                         </li>
                         <li>
-                            <div>Uploaded On</div>
+                            <div className="col-name">Uploaded On</div>
                             <div className="the-meat">{dataObj.upload_date.slice(0,10)}</div>
                         </li>
                         <li>
-                            <div>Description</div>
+                            <div className="col-name">Description</div>
                             <div className="the-meat">{dataObj.data_summary}</div>
                         </li>
-                        {/* <li><button onClick={this.downloadS3}>DOWNLOAD</button></li> */}
+                        <li><button onClick={(event) =>this.downloadS3(event, dataObj.s3link, dataObj.s3key, dataObj.title)}>DOWNLOAD</button></li>
                     </ul>
                     <div>{
                             (this.props.user !== null 

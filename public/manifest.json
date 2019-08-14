@@ -3,9 +3,9 @@
   "name": "Acoustisea",
   "icons": [
     {
-      "src": "../src/icons/trident.png",
-      "sizes": "128x128 48x48 32x32 24x24 16x16",
-      "type": "image/png"
+      "src": "favicon.ico",
+      "sizes": "64x64 48x48 32x32 24x24 16x16",
+      "type": "image/x-ixon"
     }
   ],
   "start_url": ".",

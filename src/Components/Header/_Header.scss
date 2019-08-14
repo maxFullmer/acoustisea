@@ -1,8 +1,9 @@
 @import '../../_varMixGlobal.scss';
 
 header {
-    background: $uavYellow;  
-    padding: 4%;
+    background: $uavYellow;
+    height: 50px;  
+    padding: 5px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;

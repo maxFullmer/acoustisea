@@ -12,9 +12,9 @@ module.exports = {
 
     addUserDataInfo: async (req, res) => {
         const db = req.app.get('db');
-        const { username, user_id, title, file_type, subtopic, dataSummary } = req.body;
+        const { username, user_id, title, file_type, subtopic, dataSummary, s3link, s3key } = req.body;
         console.log(req.body)
-        const newPost = await db.add_user_data_info([username, user_id, title, file_type, subtopic, dataSummary])
+        const newPost = await db.add_user_data_info([username, user_id, title, file_type, subtopic, dataSummary, s3link, s3key])
         .catch(err => console.log(err));
         console.log(newPost)
         res.status(200).send(newPost[newPost.length - 1])

@@ -10,6 +10,7 @@
     flex-direction: column;
     align-items: center;
     font-size: 1.8em;
+    padding-bottom: 10px;
 
     li {
         width: 80%;
@@ -28,8 +29,8 @@
         #camera:hover {
             filter: alpha(opacity=50);
             opacity: 0.5;
-            background: url('/src/iconsAndImages/outline_camera_front_white_48dp.png');
-            z-index: 97;
+            background: url('./iconsAndImages/outline_camera_front_white_48dp.png');
+            // z-index: 97;
         }
         
         #swap-picture {
@@ -47,4 +48,24 @@
             // color: $silver + 50;
         }
     }
+}
+
+#bio {
+    h2 {
+        margin: 8px;
+    }
+
+    div {
+        span {
+            margin: 8px;
+            color: black;
+            background: $white;
+            @include databorder;
+            padding: 6px;
+        }
+    }
+}
+
+#userinfo-container {
+    @include centercentercol;
 }

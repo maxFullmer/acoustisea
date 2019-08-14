@@ -96,28 +96,30 @@ class PublicData extends Component {
                 <div key={index} className="data-container">
                     <ul>
                         <li>
-                            <div>Title</div>
-                            <div>{publicDataObj.title}</div>
+                            <div className="col-name">Title</div>
+                            <div className="the-meat title">{publicDataObj.title}</div>
                         </li>
                         <li>
-                            <div>File Type</div>
-                            <div>{publicDataObj.file_type}</div>
+                            <div className="col-name">File Type</div>
+                            <div className="the-meat">{publicDataObj.file_type}</div>
                         </li>
                         <li>
-                            <div>Category</div>
-                            <div>{publicDataObj.subtopic}</div>
+                            <div className="col-name">Category</div>
+                            <div className="the-meat">{publicDataObj.subtopic}</div>
                         </li>
                         <li>
-                            <div>Uploaded On</div>
-                            <div>{publicDataObj.upload_date.slice(0,10)}</div>
+                            <div className="col-name">Uploaded On</div>
+                            <div className="the-meat">{publicDataObj.upload_date.slice(0,10)}</div>
                         </li>
                         <li>
-                            <div>Description</div>
-                            <div>{publicDataObj.data_summary}</div>
+                            <div className="col-name">Description</div>
+                            <div className="the-meat">{publicDataObj.data_summary}</div>
                         </li>
                         <li>
-                            <div onClick={(event) => this.goToOtherUserPage(event, publicDataObj.user_id)}>
-                                {publicDataObj.username}
+                            <div className="col-name">Contibutor</div>
+                            <div  className="the-meat" 
+                                    onClick={(event) => this.goToOtherUserPage(event, publicDataObj.user_id)}>
+                                <button>{publicDataObj.username}</button>
                             </div>
                         </li>
                     </ul>
@@ -126,7 +128,7 @@ class PublicData extends Component {
         })
         return (
             <div>
-                <div>{headerIsSubtopic}</div>
+                <h1>{headerIsSubtopic}</h1>
                 {mappedPublicData}
             </div>
         );

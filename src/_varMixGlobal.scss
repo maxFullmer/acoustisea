@@ -23,3 +23,8 @@ $white: #f1f1f1;
     justify-content: center;
     align-items: center;
 }
+
+@mixin databorder {
+    border: solid 4px $uavYellow;
+    border-radius: 8px;
+}

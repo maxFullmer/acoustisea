@@ -6,6 +6,7 @@ const fs = require('fs');
 const fileType = require('file-type');
 const bluebird = require('bluebird');
 const multiparty = require('multiparty');
+
 const session = require('express-session');
 const authCtrl = require('./controllers/authController.js');
 const userInfoCtrl = require('./controllers/userInfoController.js');
@@ -141,10 +142,12 @@ app.post(`/api/data_file`, (request, response) => {
 
 // Retrieve Data File:
 app.get(`/api/data_file`, (request, response) => {
-    let { filename } = request.body;
+    let key = request.query.s3key;
+    console.log(request.query)
     let params = {
+        // ACL: 'public-read',
         Bucket: S3_BUCKET_UA_FILES,
-        Key: filename
+        Key: key
     };
     s3.getObject(params, function(err, data) {
         if (err) {
@@ -152,6 +155,7 @@ app.get(`/api/data_file`, (request, response) => {
             response.status(400).send(err)
         }
         else {
+            // fs.writeFileSync(filePath, data.Body.toString())
             response.status(200).send(data)
         }
     })

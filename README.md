@@ -1,6 +1,6 @@
 # Acoustisea
 
-### Acoustisea is a GitHub like responsive web app for underwater acoustic data files. 
+### Acoustisea is a responsive web app for sharing underwater acoustic data files. 
 
 ## Features:  
 - Users can upload underwater acoustic data and see descriptions on their own page.
@@ -30,6 +30,7 @@
 - redux-promise-middleware
 - toastify
 - query-string
+- js-file-download
 
 ### Routes
 

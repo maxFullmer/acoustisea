@@ -3,7 +3,6 @@ import axios from 'axios';
 import { getUserSession } from '../../redux/reducers/userReducer.js';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-// import './_UserInfo.scss'
 
 class UserInfo extends Component {
     constructor(props) {
@@ -13,7 +12,8 @@ class UserInfo extends Component {
             userInfoToDisplay: [],
             newProfilePicture: null,
             profileImgClickedOn: false,
-            biography: ""
+            newBio: "",
+            editBio: false
         };
     }
 
@@ -36,14 +36,12 @@ class UserInfo extends Component {
     }
 
     handleProfilePicture = (event) => {
-        console.log('hit handle prof pic')
             this.setState({
                 newProfilePicture: event.target.files
             });
         }
 
     submitProfilePicture = (event) => {
-        console.log('hit submit')
         event.preventDefault();
 
         if(!this.state.newProfilePicture) {
@@ -62,7 +60,7 @@ class UserInfo extends Component {
             'Content-Type': 'multipart/form-data'
           }
         }).then(responseS3 => {
-            console.log('amazon S3 response prof pic: ', responseS3.data.Location)
+            console.log('amazon S3 response prof pic: ', responseS3)
             axios.put(`/api/user/profile_picture/${this.props.user.user_id}`, {profile_picture: responseS3.data.Location})
             .then(responseDB => {
                 console.log('db response prof pic: ', responseDB)
@@ -84,25 +82,47 @@ class UserInfo extends Component {
         })
     }
 
-    // DATABASE REQUESTS
 
-    updateBio = () => {
-        let { biography } = this.state;
-        axios.put(`/api/user/bio/${this.props.match.params.user_id}`, biography)
+    // Update Bio on db
+    editBiography = (event) => {
+        event.preventDefault();
+        this.setState( {editBio: true} )
+    }
+
+    handleBioChange = (value) => {
+        // event.persist();
+        this.setState( {newBio: value} )
+    }
+
+    updateBio = (event) => {
+        event.preventDefault();
+        let { newBio } = this.state;
+        console.log('Bio being sent to server: ', newBio)
+
+        axios.put(`/api/user/bio/${this.props.match.params.user_id}`, {biography: newBio})
         .then(response => {
+            let [newUserInfoArrray] = response.data;
             this.setState({
-                userInfoToDisplay: response.data
+                userInfoToDisplay: newUserInfoArrray,
+                newBio: "",
+                editBio: false
             })
         })
     }
 
+    cancelBioChange = (event) => {
+        event.preventDefault();
+        this.setState({
+            newBio: "",
+            editBio: false
+        })
+    }
+
     render() {
-        let { userInfoToDisplay, newProfilePicture, profileImgClickedOn } = this.state;
-        console.log('new prof pic state: ', newProfilePicture)
-        console.log('is clicked on prof pic: ', profileImgClickedOn)
+        let { userInfoToDisplay, profileImgClickedOn, editBio } = this.state;
 
         return (
-            <div>
+            <div id="userinfo-container">
                 <div>
                     {
                     (this.props.user !== null 
@@ -135,9 +155,30 @@ class UserInfo extends Component {
                     </ul>}
                 </div>
 
-                <div>
+                <div id="bio">
                     <h2>User Bio: </h2>
-                    <span>{userInfoToDisplay.biography}</span>
+                    <div>{
+                        (this.props.user !== null 
+                        && this.props.user.user_id === +this.props.match.params.user_id
+                        ) 
+                        ?
+                            (editBio)
+                            ?
+                            <div>
+                                <input type="text" value={this.state.newBio} onChange={(event) => this.handleBioChange(event.target.value)} />
+                                <button type="submit" onClick={this.updateBio}>Confirm Update</button>
+                                <button type="button" onClick={this.cancelBioChange}>Cancel</button>
+                            </div>
+                            :
+                            <div>
+                                <span>{userInfoToDisplay.biography}</span>
+                                <button type="button" onClick={this.editBiography}>Edit</button>
+                            </div>
+                        :
+                        <span>{userInfoToDisplay.biography}</span>
+                        }
+                    </div>
+                    
                 </div>
             </div>
         );
