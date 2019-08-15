@@ -3,15 +3,46 @@
 .auth-wrapper {
     @include centercentercol;
     height: auto;
+    position: absolute;
+    top: 17.5vh;
 
-    div {
+    @media (min-width: 600px) {
+        display: flex;
+        flex-direction: row;
+        top: 30vh;
+    }
+
+    #login-container {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
         align-items: center;
         height: 25vh;
-        width: 80%;
-        // background: red;
+        width: 90%;
+        @include databorder;
+        margin: 4%;
+
+        @media (min-width: 600px) {
+            height: 35vh;
+        }
+
+        label {
+            color: white;
+        }
+        
+        input {
+            width: 190px;
+        }
+    }
+
+    #register-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        height: 35vh;
+        width: 90%;
+        @include databorder;
         margin: 4%;
 
         label {
@@ -19,7 +50,7 @@
         }
         
         input {
-            width: 70%;
+            width: 190px;
         }
     }
 }

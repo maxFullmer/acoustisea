@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { attemptLogin, getUserSession } from '../../redux/reducers/userReducer.js';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
-// import './_Authentication.scss'
 
 class Authentication extends Component {
     constructor(props) {
@@ -49,7 +48,7 @@ class Authentication extends Component {
     const { emailLogin, passLogin, userRegister, passRegister, emailRegister } = this.state;
     return (
         <div className="auth-wrapper">
-            <div>
+            <div id="login-container">
                 <label htmlFor="emailLogin">Email: </label>
                 <input type="text" placeholder="email" name="emailLogin" value={emailLogin}
                     onChange={event => this.textInputHandler(event.target.name, event.target.value)}/>
@@ -62,7 +61,7 @@ class Authentication extends Component {
                 {/* <ToastContainer /> */}
             </div>
 
-            <div>
+            <div id="register-container">
                 <label htmlFor="userRegister">Username: </label>
                 <input type="text" placeholder="username" name="userRegister" value={userRegister}
                     onChange={event => this.textInputHandler(event.target.name, event.target.value)}/>

@@ -23,6 +23,7 @@ const {
 
 const app = express();
 app.use(express.json());
+app.use( express.static( `${__dirname}/../build` ) );
 
 massive(CONNECTION_STRING).then(db => {
     console.log('Connected to db');
@@ -164,5 +165,9 @@ app.get(`/api/data_file`, (request, response) => {
 // Delete Profile Picture:
 
 
+const path = require('path')
+app.get('*', (req, res)=>{
+  res.sendFile(path.join(__dirname, '../build/index.html'));
+})
 
 app.listen(SERVER_PORT, () => console.log(`Rogue 1 you are cleared for entry on port ${SERVER_PORT}`));
