@@ -29,3 +29,21 @@ button:active {
     filter: alpha(opacity=50);
     opacity: 0.5;
 }
+
+a {
+    @include acoustiseaButton;
+    margin: 8px;
+    padding: 3px;
+    font-size: 1.2em;
+    text-decoration: none;
+}
+
+a:hover {
+    background: $uavYellow;
+}
+
+a:active {
+    filter: alpha(opacity=50);
+    opacity: 0.5;
+}
+

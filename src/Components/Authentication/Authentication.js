@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { ToastContainer } from 'react-toastify';
-// import "react-toastify/dist/ReactToastify.css";
 import { attemptLogin, getUserSession } from '../../redux/reducers/userReducer.js';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
+import { ToastContainer, toast} from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 class Authentication extends Component {
     constructor(props) {
@@ -18,23 +18,45 @@ class Authentication extends Component {
         }
     }
 
-    login = () => {
+    componentDidMount() {
+        axios.get('/api/user_session')
+        .then(response => {
+            console.log('user session status: ', response)
+            this.props.getUserSession(response.data)
+            if(this.props.user) {
+                this.props.history.push(`/user/${this.props.user.user_id}`)
+            }
+        })
+    }
+
+    login = (event) => {
+        event.preventDefault();
         const { passLogin, emailLogin } = this.state;
 
         axios.post('/api/login', {password: passLogin, email: emailLogin})
         .then(response => {
+            console.log('login attempt data: ', response.data)
             this.props.attemptLogin(response.data)
             this.props.history.push(`/user/${response.data.user_id}`)
         })
+        .catch(error => {
+            toast.error(error.response.data, {
+                style: {background: "#aaa9b3", color: "#f1eaee"}
+            })
+        })
     }
 
-    register = () => {
+    register = (event) => {
+        event.preventDefault();
         const { userRegister, passRegister, emailRegister } = this.state;
 
         axios.post('/api/register', {username: userRegister, password: passRegister, email: emailRegister})
         .then(response => {
             this.props.getUserSession(response.data)
             this.props.history.push(`/user/${response.data.user_id}`)
+        })
+        .catch(error => {
+            toast.error(error.response.data)
         })
     }
 
@@ -57,8 +79,8 @@ class Authentication extends Component {
                 <input type="password" placeholder="password" name="passLogin" value={passLogin}
                     onChange={event => this.textInputHandler(event.target.name, event.target.value)}/>
                 
-                <button onClick={this.login}>Login</button>
-                {/* <ToastContainer /> */}
+                <button type="submite" onClick={this.login}>Login</button>
+                
             </div>
 
             <div id="register-container">
@@ -74,7 +96,9 @@ class Authentication extends Component {
                 <input type="text" placeholder="email" name="emailRegister" value={emailRegister}
                     onChange={event => this.textInputHandler(event.target.name, event.target.value)}/>
                 
-                <button onClick={this.register}>Register</button>
+                <button type="submit" onClick={this.register}>Register</button>
+                
+                <ToastContainer autoClose={2750}/>
             </div>
         </div>
     )

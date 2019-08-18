@@ -6,10 +6,12 @@ import UserProfile from './Components/UserProfile/UserProfile.js';
 import SubtopicDisplayCenter from './Components/SubtopicDisplayCenter/SuptopicDisplayCenter.js';
 import './App.scss';
 
+
 function App() {
   return (
     <div>
       <Header />
+
       <Switch>
         <Route exact path="/" component={Authentication}/>
         <Route path="/user/:user_id" 
@@ -22,7 +24,6 @@ function App() {
         <Route path="/publicdata" component={SubtopicDisplayCenter}/>
         <Route path="*" render={() => {return <div>404: Page not found. You may have made a syntactical error. Please check spelling of URL.</div>}}/>
       </Switch>
-
     </div>
   );
 }

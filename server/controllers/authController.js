@@ -32,7 +32,7 @@ module.exports = {
         let {password, email} = req.body;
         const foundUser = await db.find_user_by_email([email]).catch(err => console.log(err));
         if (!foundUser.length) {
-            res.status(401).send('Login credentials resulted in denial of access')
+            res.status(401).send('Incorrect login credentials')
         } else {
             const matchedPasswords = await bcrypt
             .compare(password, foundUser[0].password)
@@ -45,7 +45,7 @@ module.exports = {
                 }
                 res.status(200).send(req.session.user)
             } else {
-                res.status(401).send('Login credentials resulted in denial of access')
+                res.status(401).send('Incorrect login credentials')
             }
         }
     },

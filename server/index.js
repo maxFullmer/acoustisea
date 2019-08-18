@@ -76,7 +76,7 @@ AWS.config.update({
     // create S3 instance
   const s3 = new AWS.S3();
   
-    // abstracts function to upload a file returning a promise
+    // abstracts function to upload the profile picutre returning a promise
   const uploadProfile = (buffer, name, type) => {
     const profileParams = {
       ACL: 'public-read',
@@ -116,6 +116,9 @@ const uploadFile = (buffer, name, type) => {
         Body: buffer,
         Bucket: S3_BUCKET_UA_FILES,
         ContentType: type.mime,
+        // v v v causes file to be saved to client's machine upon download GET request v v v
+        ContentDisposition: 'attachment',
+        // ^ ^ ^ s3 object (the file) now has response header metadata
         Key: `${name}.${type.ext}`
     };
     return s3.upload(fileParams).promise();
@@ -141,29 +144,23 @@ app.post(`/api/data_file`, (request, response) => {
       });
   });
 
-// Retrieve Data File:
-app.get(`/api/data_file`, (request, response) => {
-    let key = request.query.s3key;
-    console.log(request.query)
-    let params = {
-        // ACL: 'public-read',
-        Bucket: S3_BUCKET_UA_FILES,
-        Key: key
-    };
-    s3.getObject(params, function(err, data) {
-        if (err) {
-            console.log(err);
-            response.status(400).send(err)
-        }
-        else {
-            // fs.writeFileSync(filePath, data.Body.toString())
-            response.status(200).send(data)
-        }
-    })
-})
-
 // Delete Profile Picture:
-
+app.delete('/api/removefile', (request, response) => {
+  let key = request.query.s3key;
+  let removeParams = {
+      Bucket: S3_BUCKET_UA_FILES,
+      Key: key
+  };
+  s3.deleteObject(removeParams, function(err,data) {
+    if (err) {
+        console.log(err);
+        response.status(400).send(err);
+    }
+    else {
+      response.status(200).send('delete successful');
+    }
+  })
+})
 
 const path = require('path')
 app.get('*', (req, res)=>{

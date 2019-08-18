@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
-// import './_PublicData.scss';
+import { toast } from 'react-toastify';
 
 class PublicData extends Component {
     constructor(props) {
@@ -73,6 +73,14 @@ class PublicData extends Component {
         }    
     }
 
+    downloadable = (event) => {
+        if(!this.props.user) {
+            event.preventDefault();
+            toast.error("You must have an account to download")
+            this.props.history.push("/")
+        }
+    }
+
     goToOtherUserPage(event, id) {
         event.preventDefault();
         console.log('PublicObj.user_id: ', id)
@@ -116,8 +124,12 @@ class PublicData extends Component {
                             <div className="the-meat">{publicDataObj.data_summary}</div>
                         </li>
                         <li>
+                            <div className="col-name">File</div>
+                            <div className="the-meat"><a href={`${publicDataObj.s3link}`} download={`${publicDataObj.title}.${publicDataObj.file_type}`} onClick={this.downloadable}>DOWNLOAD</a></div>
+                        </li>
+                        <li>
                             <div className="col-name">Contibutor</div>
-                            <div  className="the-meat" 
+                            <div className="the-meat" 
                                     onClick={(event) => this.goToOtherUserPage(event, publicDataObj.user_id)}>
                                 <button>{publicDataObj.username}</button>
                             </div>

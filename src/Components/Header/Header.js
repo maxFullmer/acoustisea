@@ -5,6 +5,7 @@ import { getUserSession } from '../../redux/reducers/userReducer.js';
 import axios from 'axios';
 import logo from '../../iconsAndImages/trident.png';
 
+
 class Header extends Component {
     componentDidMount() {
         axios.get('/api/user_session')

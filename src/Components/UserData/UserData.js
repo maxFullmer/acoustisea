@@ -3,7 +3,7 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { getUserSession } from '../../redux/reducers/userReducer.js';
-import fileDownload from 'js-file-download';
+import { toast } from 'react-toastify';
 
 class UserData extends Component {
     constructor(props) {
@@ -76,7 +76,7 @@ class UserData extends Component {
         }    
     }
 
-    // DATABASE REQUESTS
+    // DATABASE REQUESTS + HELPER FUNCTIONS
 
     handleFileUpload = (event) => {
         this.setState({file: event.target.files});
@@ -177,10 +177,14 @@ class UserData extends Component {
         })
     }
 
-    deleteDataInfo = (event, dataId) => {
+    deleteDataInfo = (event, dataId, s3key) => {
         event.preventDefault();
 
         // axios call to s3 and then db
+        axios.delete(`/api/removefile?s3key=${s3key}`)
+        .then(response => {
+            return
+        })
 
         axios.delete(`/api/user_data/${this.props.user.user_id}?data_id=${dataId}`)
         .then(response => {
@@ -190,36 +194,13 @@ class UserData extends Component {
         })
     }
 
-    // DOWNLOAD FILE
-    downloadS3 = (event, dataLink, dataKey, fileName) => {
-        event.preventDefault();
+    downloadable = (event) => {
         if(!this.props.user) {
-            //get toastify up in here
-            alert('Please log in/register to download')
-            // show login button to redirect to login/register
-        } else {
-            console.log(dataKey)
-            axios.get(`/api/data_file?s3key=${dataKey}`)
-            .then(response => {
-                // figure out how to get the file to the requester... => something: response
-            console.log(response)
-            console.log(fileName)
-            fileDownload(response.data, fileName)
-            // fileDownload(dataLink, fileName)
-            // const url = window.URL.createObjectURL(new Blob([dataLink]));
-            const url = dataLink;
-            let tempLink = document.createElement('a');
-            tempLink.href = url;
-            tempLink.setAttribute('download', `${fileName}`)
-            tempLink.setAttribute('target', '_blank')
-            document.body.appendChild(tempLink);
-            tempLink.click();
-            document.body.removeChild(tempLink);    
-            })
+            event.preventDefault();
+            toast.error("You must have an account to download")
+            this.props.history.push("/")
         }
     }
-
-    
 
     render() {
         let { dataInfoToDisplay, showFormAdd, showFormUpdate, selectedDataInfoMapIndex } = this.state;
@@ -327,7 +308,10 @@ class UserData extends Component {
                             <div className="col-name">Description</div>
                             <div className="the-meat">{dataObj.data_summary}</div>
                         </li>
-                        <li><button onClick={(event) =>this.downloadS3(event, dataObj.s3link, dataObj.s3key, dataObj.title)}>DOWNLOAD</button></li>
+                        <li>
+                            <div className="col-name">File</div>
+                            <div className="the-meat"><a href={`${dataObj.s3link}`} download={`${dataObj.title}.${dataObj.file_type}`} onClick={this.downloadable}>DOWNLOAD</a></div>
+                        </li>
                     </ul>
                     <div>{
                             (this.props.user !== null 
@@ -340,7 +324,7 @@ class UserData extends Component {
                                 :
                                 <div>
                                     <button type="submit" onClick={(event) => this.toggleFormRenderUpdate(event, dataObj.data_id, index)}>EDIT</button>
-                                    <button type="submit" onClick={(event) => this.deleteDataInfo(event, dataObj.data_id)}>DELETE</button>
+                                    <button type="submit" onClick={(event) => this.deleteDataInfo(event, dataObj.data_id, dataObj.s3key)}>DELETE</button>
                                 </div>
                             :
                             null}
