@@ -1,7 +1,7 @@
-import React, {Component } from 'react';
+import React, { Component } from 'react';
 import UserInfo from '../UserInfo/UserInfo.js';
 import UserData from '../UserData/UserData.js';
-// import './_UserProfile.scss';
+
 
 class UserProfile extends Component {
     routeHandler = (event) => {

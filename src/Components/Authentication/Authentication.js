@@ -21,7 +21,6 @@ class Authentication extends Component {
     componentDidMount() {
         axios.get('/api/user_session')
         .then(response => {
-            console.log('user session status: ', response)
             this.props.getUserSession(response.data)
             if(this.props.user) {
                 this.props.history.push(`/user/${this.props.user.user_id}`)
@@ -35,7 +34,6 @@ class Authentication extends Component {
 
         axios.post('/api/login', {password: passLogin, email: emailLogin})
         .then(response => {
-            console.log('login attempt data: ', response.data)
             this.props.attemptLogin(response.data)
             this.props.history.push(`/user/${response.data.user_id}`)
         })

@@ -36,7 +36,6 @@ class UserData extends Component {
     }
 
     // FRONT END MANAGEMENT FUNCTIONS
-
     subtopicHandler = (event) => {
         this.setState({
             isMarBio: false,
@@ -77,7 +76,6 @@ class UserData extends Component {
     }
 
     // DATABASE REQUESTS + HELPER FUNCTIONS
-
     handleFileUpload = (event) => {
         this.setState({file: event.target.files});
     }
@@ -98,12 +96,11 @@ class UserData extends Component {
                 isEnviro ? 'enviro' :
                 isUnknown ? 'unknown' :
                 null;
-            
-            console.log('subtopic selected inside upload file', subtopic)
 
             let formData = new FormData();
             formData.append('file', this.state.file[0]);
             
+            // axios call to s3
             axios.post(`/api/data_file`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -111,8 +108,7 @@ class UserData extends Component {
                 }
             })
             .then(response => {
-                console.log('upload file S3 response: ', response)
-
+                // nested axios call to insert the link from s3 and user input into db
                 axios.post('/api/user_data_form', 
                 {
                     username: username, 
@@ -125,8 +121,6 @@ class UserData extends Component {
                     s3key: response.data.Key
                 })
                 .then(response => {
-                    console.log('upload file info db response: ')
-
                     this.setState({
                         dataInfoToDisplay: [ ...this.state.dataInfoToDisplay, response.data],
                         showFormAdd: false
@@ -151,10 +145,7 @@ class UserData extends Component {
             isUnknown ? 'unknown' :
             null;
 
-        console.log('data_id: ', selectedDataInfoId)
-        console.log('session user for delete: ', this.props.user.user_id)
-        console.log('key/index: ', selectedDataInfoMapIndex)
-
+        // axios call to db
         axios.put('/api/user_data_form', 
         {
             title: dataTitle, 
@@ -165,7 +156,6 @@ class UserData extends Component {
             user_id: user_id
         })
         .then(response => {
-            console.log('update response', response)
             let newDataArray = dataInfoToDisplay.slice();
             newDataArray[selectedDataInfoMapIndex] = response.data;
 
@@ -180,12 +170,12 @@ class UserData extends Component {
     deleteDataInfo = (event, dataId, s3key) => {
         event.preventDefault();
 
-        // axios call to s3 and then db
+        // axios call to s3
         axios.delete(`/api/removefile?s3key=${s3key}`)
         .then(response => {
             return
         })
-
+        // axios call to db
         axios.delete(`/api/user_data/${this.props.user.user_id}?data_id=${dataId}`)
         .then(response => {
             this.setState({
@@ -206,7 +196,6 @@ class UserData extends Component {
         let { dataInfoToDisplay, showFormAdd, showFormUpdate, selectedDataInfoMapIndex } = this.state;
 
         // FORM
-
         let addOrUpdateForm = 
              (
                 <div >
@@ -283,7 +272,6 @@ class UserData extends Component {
         )
 
         // DATA INFO
-
         let mappedUserData = dataInfoToDisplay.map((dataObj, index) => {
             return (
                 <div key={index} className="data-container">
@@ -334,7 +322,6 @@ class UserData extends Component {
         })        
 
         // PUTTING IT ALL TOGETHER
-
         return (
             <div>
                 <div>{mappedUserData}</div>

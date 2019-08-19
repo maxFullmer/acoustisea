@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { getUserSession } from '../../redux/reducers/userReducer.js'
+import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -13,9 +15,12 @@ class PublicData extends Component {
     }
 
     componentDidMount() {
+        axios.get('/api/user_session')
+        .then(response => {
+            this.props.getUserSession(response.data)
+        })
         //take parsed query with the value of the subtopic from parent props
         const { subtopic } = this.props;
-        console.log('props in componentDidMount: ', subtopic)
         //set selected subtopic to database column name that we are sending to backend
         switch(subtopic) {
             case 'marinebioacoustics': {
@@ -83,12 +88,10 @@ class PublicData extends Component {
 
     goToOtherUserPage(event, id) {
         event.preventDefault();
-        console.log('PublicObj.user_id: ', id)
         this.props.history.push(`/user/${id}`)
     }
 
     render() {
-        console.log('props from subtopic display to public data component: ', this.props)
         let { publicDataToDisplay } = this.state;
         let { subtopic } = this.props;
 
@@ -147,4 +150,12 @@ class PublicData extends Component {
     }
 }
 
-export default withRouter(PublicData);
+function mapReduxStateToProps(reduxState){
+    return reduxState
+}
+
+const mapDispatchToProps = {
+    getUserSession
+}
+
+export default withRouter(connect(mapReduxStateToProps, mapDispatchToProps)(PublicData));
