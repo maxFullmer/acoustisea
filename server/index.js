@@ -61,7 +61,7 @@ app.delete('/api/user_data/:user_id', dataInfoCtrl.deleteUserDataInfo);
 // DataInfo (for public)
 app.get('/api/publicData/:subtopicSelected', dataInfoCtrl.getSubtopicDataInfo)
 
-//Amazon S3 endpoints
+// AMAZON S3 ENDPOINTS (2)
 
 // Set up:
     // configure the keys for accessing AWS
@@ -89,7 +89,7 @@ AWS.config.update({
   };
 
   
-  // Upload Profile Picture:
+  // ENDPOINT (1): Upload Profile Picture: 
   app.post(`/api/profile_pic`, (request, response) => {
     const profileForm = new multiparty.Form();
       profileForm.parse(request, async (err, fields, files) => {
@@ -109,6 +109,7 @@ AWS.config.update({
       });
   });
 
+/////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 // abstracts function to upload a file returning a promise
 const uploadFile = (buffer, name, type) => {
     const fileParams = {
