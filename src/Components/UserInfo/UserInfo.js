@@ -60,10 +60,8 @@ class UserInfo extends Component {
             'Content-Type': 'multipart/form-data'
           }
         }).then(responseS3 => {
-            console.log('amazon S3 response prof pic: ', responseS3)
             axios.put(`/api/user/profile_picture/${this.props.user.user_id}`, {profile_picture: responseS3.data.Location})
             .then(responseDB => {
-                console.log('db response prof pic: ', responseDB)
                 this.setState({
                     userInfoToDisplay: responseDB.data,
                     newProfilePicture: null
@@ -97,7 +95,6 @@ class UserInfo extends Component {
     updateBio = (event) => {
         event.preventDefault();
         let { newBio } = this.state;
-        console.log('Bio being sent to server: ', newBio)
 
         axios.put(`/api/user/bio/${this.props.match.params.user_id}`, {biography: newBio})
         .then(response => {

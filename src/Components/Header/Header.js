@@ -10,14 +10,12 @@ class Header extends Component {
     componentDidMount() {
         axios.get('/api/user_session')
         .then(response => {
-            console.log('user session status: ', response)
             this.props.getUserSession(response.data)
             }
         )
     }
 
     userHome = () => {
-        console.log('this.props.user.user_id',this.props.user.user_id)
         this.props.history.push(`/user/${this.props.user.user_id}`)
     }
     
