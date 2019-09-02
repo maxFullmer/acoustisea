@@ -1,5 +1,30 @@
 @import '../../_varMixGlobal.scss';
 
+#dolphinimation {
+    width: 100vw;
+    height: 64px;
+    // border: 1px solid black;
+    position: absolute;
+    top: 60px;
+    // animation-name: swim;
+    // animation-duration: 2s;
+    // animation-iteration-count: infinite;
+
+    // #dolphin-swim-right {
+    //     @keyframes swim {
+    //         0%   { left:0; }
+    //         25%  { left:20%; }
+    //         50%  { left:40%; }
+    //         75%  { left:60%; }
+    //         100% { left:80%; }
+    //     } 
+    // }
+
+    @media (min-width: 600px) {
+        top: 17.5vh;
+    }
+}
+
 .auth-wrapper {
     @include centercentercol;
     height: auto;
