@@ -38,11 +38,12 @@
     }
 
     #login-container {
+        box-sizing: border-box;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
         align-items: center;
-        height: 25vh;
+        height: 30vh;
         width: 90%;
         @include databorder;
         margin: 4%;
@@ -53,6 +54,7 @@
 
         label {
             color: white;
+            margin: 8px;
         }
         
         input {
@@ -61,6 +63,7 @@
     }
 
     #register-container {
+        box-sizing: border-box;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
@@ -72,6 +75,7 @@
 
         label {
             color: white;
+            margin: 4px;
         }
         
         input {

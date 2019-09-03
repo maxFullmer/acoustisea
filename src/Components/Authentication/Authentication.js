@@ -105,7 +105,7 @@ class Authentication extends Component {
             </canvas>
 
             <div className="auth-wrapper">
-                <div id="login-container">
+                <form id="login-container" onSubmit={this.login}>
                     <label htmlFor="emailLogin">Email: </label>
                     <input type="text" placeholder="email" name="emailLogin" value={emailLogin}
                         onChange={event => this.textInputHandler(event.target.name, event.target.value)}/>
@@ -114,11 +114,10 @@ class Authentication extends Component {
                     <input type="password" placeholder="password" name="passLogin" value={passLogin}
                         onChange={event => this.textInputHandler(event.target.name, event.target.value)}/>
                     
-                    <button type="submit" onClick={this.login}>Login</button>
-                    
-                </div>
+                    <button type="submit">Login</button>
+                </form>
 
-                <div id="register-container">
+                <form id="register-container">
                     <label htmlFor="userRegister">Username: </label>
                     <input type="text" placeholder="username" name="userRegister" value={userRegister}
                         onChange={event => this.textInputHandler(event.target.name, event.target.value)}/>
@@ -134,7 +133,7 @@ class Authentication extends Component {
                     <button type="submit" onClick={this.register}>Register</button>
                     
                     <ToastContainer autoClose={2750}/>
-                </div>
+                </form>
             </div>
         </div>
         
