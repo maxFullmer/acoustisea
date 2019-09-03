@@ -10,7 +10,9 @@ class PublicData extends Component {
         super(props)
 
         this.state = {
-            publicDataToDisplay: []
+            publicDataToDisplay: [],
+            typedSearch: "",
+            submittedSearch: ""
         }
     }
 
@@ -91,8 +93,21 @@ class PublicData extends Component {
         this.props.history.push(`/user/${id}`)
     }
 
+    changeHandler(property, value){
+        this.setState({
+            [property]: value
+        })
+    }
+
+    submitSearch(event) {
+        event.preventDefault();
+        this.setState({
+            submittedSearch: this.state.typedSearch.toLowerCase()
+        })
+    }
+
     render() {
-        let { publicDataToDisplay } = this.state;
+        let { publicDataToDisplay, typedSearch, submittedSearch } = this.state;
         let { subtopic } = this.props;
 
         let headerIsSubtopic = (subtopic === 'marinebioacoustics') ? 'Marine Bioacoustics': 
@@ -102,7 +117,11 @@ class PublicData extends Component {
         (subtopic === 'unknown') ? 'Unknown' :
         null;
 
-        let mappedPublicData = publicDataToDisplay.map((publicDataObj, index) => {
+        let filteredPublicData = publicDataToDisplay.filter(publicDataObjFromServer => {
+            return publicDataObjFromServer.title.toLowerCase().search(`${submittedSearch}`) >= 0;
+        })
+
+        let mappedPublicData = filteredPublicData.map((publicDataObj, index) => {
             return (
                 <div key={index} className="data-container">
                     <ul>
@@ -141,9 +160,21 @@ class PublicData extends Component {
                 </div>
             )
         })
+
+        console.log('filtered data: ', filteredPublicData)
         return (
             <div>
                 <h1>{headerIsSubtopic}</h1>
+                <div id="search-bar">
+                    <input 
+                        type="text"
+                        placeholder="Search by phrase in title..."
+                        name="typedSearch"
+                        value={typedSearch}
+                        onChange={event => this.changeHandler(event.target.name, event.target.value)}>
+                    </input>
+                    <button type="button" onClick={event => this.submitSearch(event)}>Find</button>
+                </div>
                 {mappedPublicData}
             </div>
         );

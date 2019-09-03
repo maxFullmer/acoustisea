@@ -7,6 +7,14 @@ h1 {
     font-size: 3em;
 }
 
+#search-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    
+    input { margin-left: 5px;}
+}
+
 // CLASS ALREADY DEFINED IN _USERDATA.SCSS
 // .data-container {
 //     width: auto;
