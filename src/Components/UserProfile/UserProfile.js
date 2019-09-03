@@ -43,6 +43,7 @@ class UserProfile extends Component {
             </section>   
 
             <section className="user-data">
+                <span>Contributions</span>
                 <UserData />
             </section>
         </div>

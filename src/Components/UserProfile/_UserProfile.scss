@@ -136,6 +136,13 @@ div {
     }
 
     .user-data {
+        display: flex;
+        flex-direction: column;
         padding: 20px;
+
+        span {
+            font-size: 1.5em;
+            margin: 4px;
+        }
     }
 }
