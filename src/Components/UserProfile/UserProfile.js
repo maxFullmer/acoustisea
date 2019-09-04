@@ -15,31 +15,35 @@ class UserProfile extends Component {
             </section>
 
             <section className="subtopic-nav">
-                <span>Explore:</span>
-                <nav>
-                    <ul>
-                        <li id="marbio">
-                            <button type="button" name="marinebioacoustics"
-                            onClick={(event) => this.routeHandler(event)}>Marine Bioacoustics</button>
-                        </li>
-                        <li id="vv">
-                            <button type="button" name="vesselsandvehicles"
-                            onClick={(event) => this.routeHandler(event)}>Vessels {"&"} Vehicles</button>
-                        </li>
-                        <li id="strctr">
-                            <button type="button" name="structures"
-                            onClick={(event) => this.routeHandler(event)}>Structures</button>
-                        </li>
-                        <li id="environ"> 
-                            <button type="button" name="environmental"
-                            onClick={(event) => this.routeHandler(event)}>Environmental</button>
-                        </li>
-                        <li id="unknown">
-                            <button type="button" name="unknown"
-                            onClick={(event) => this.routeHandler(event)}>Unknown</button>
-                        </li>
-                    </ul>
-                </nav>
+                <div className="wrap-collapsible">
+                    <input id="collapsible" class="toggle" type="checkbox"/>
+                    <label for="collapsible" class="lbl-toggle">Explore</label>
+
+                    <nav className="collapsible-content">
+                        <ul className="content-inner">
+                            <li id="marbio">
+                                <button type="button" name="marinebioacoustics"
+                                onClick={(event) => this.routeHandler(event)}>Marine Bioacoustics</button>
+                            </li>
+                            <li id="vv">
+                                <button type="button" name="vesselsandvehicles"
+                                onClick={(event) => this.routeHandler(event)}>Vessels {"&"} Vehicles</button>
+                            </li>
+                            <li id="strctr">
+                                <button type="button" name="structures"
+                                onClick={(event) => this.routeHandler(event)}>Structures</button>
+                            </li>
+                            <li id="environ"> 
+                                <button type="button" name="environmental"
+                                onClick={(event) => this.routeHandler(event)}>Environmental</button>
+                            </li>
+                            <li id="unknown">
+                                <button type="button" name="unknown"
+                                onClick={(event) => this.routeHandler(event)}>Unknown</button>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </section>   
 
             <section className="user-data">
