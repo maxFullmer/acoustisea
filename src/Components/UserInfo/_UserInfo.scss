@@ -53,12 +53,12 @@
 #bio {
     width: 97%;
 
-    h2 {
-        margin: 8px;
-        font-size: 1.5em;
-    }
+    .bio-div {
+        h2 {
+            margin: 8px;
+            font-size: 1.5em;
+        }
 
-    div {
         span {
             margin: 8px;
             color: black;
@@ -76,4 +76,12 @@
 
 #userinfo-container {
     @include centercentercol;
+}
+
+#edit-bio-button {
+    width: fit-content;
+    font-size: 0.8em;
+    position: absolute;
+    top: 310px;
+    right: 2%;
 }

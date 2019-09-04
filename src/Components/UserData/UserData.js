@@ -82,13 +82,13 @@ class UserData extends Component {
 
     postDataInfoAndFile = (event) => {
         event.preventDefault();
+        let { username, user_id } = this.props.user;
+        let { dataTitle, file_type, isMarBio, isVaV, isStrctr, isEnviro, isUnknown, dataSummary } = this.state;
 
-        if (!this.state.file) {
-            alert('Cannot proceed without a file selected')
+        if (!this.state.file || !(dataTitle && file_type && dataSummary)) {
+            alert('Cannot proceed without a file selected or incomplete form')
         } 
         else {
-            let { username, user_id } = this.props.user;
-            let { dataTitle, file_type, isMarBio, isVaV, isStrctr, isEnviro, isUnknown, dataSummary } = this.state;
             let subtopic = 
                 isMarBio ? 'marBio' : 
                 isVaV ? 'VaV' :
@@ -123,7 +123,15 @@ class UserData extends Component {
                 .then(response => {
                     this.setState({
                         dataInfoToDisplay: [ ...this.state.dataInfoToDisplay, response.data],
-                        showFormAdd: false
+                        showFormAdd: false,
+                        dataTitle: "",
+                        file_type: "",
+                        isMarBio: true,
+                        isVaV: false,
+                        isStrctr: false,
+                        isEnviro: false,
+                        isUnknown: false,
+                        dataSummary: ""
                     })
                 })
                 .catch(error => {console.log(error)} )
@@ -172,7 +180,7 @@ class UserData extends Component {
                     isUnknown: false,
                     dataSummary: ""
                 })
-            })
+            }).catch(error => {console.log(error)} );
         } else {
             alert("Please fill in all fields of the form")
         }
@@ -265,14 +273,16 @@ class UserData extends Component {
                         <div>{
                             (showFormAdd && !showFormUpdate)
                             ?
-                            <div>
+                            <div className="button-fit-form-add">
                                 <p>Select your file to upload</p>
                                 <input type="file" onChange={this.handleFileUpload} />
-                                <button id="submitadd" type="submit" onClick={(event) => this.postDataInfoAndFile(event)}>Submit</button>
-                                <button id="canceladd" type="button" onClick={(event) => this.toggleFormRenderAdd(event)}>Cancel</button>
+                                <div>
+                                    <button id="submitadd" type="submit" onClick={(event) => this.postDataInfoAndFile(event)}>Submit</button>
+                                    <button id="canceladd" type="button" onClick={(event) => this.toggleFormRenderAdd(event)}>Cancel</button>
+                                </div>
                             </div>
                             :
-                            <div>
+                            <div className="button-fit">
                                 <button id="submitupdate" type="submit" onClick={(event) => this.updateDataInfo(event)}>Submit</button>
                                 <button id="cancelupdate" type="button" onClick={(event) => this.toggleFormRenderUpdate(event)}>Cancel</button>
                             </div>
@@ -309,7 +319,7 @@ class UserData extends Component {
                         </li>
                         <li>
                             <div className="col-name">File</div>
-                            <div className="the-meat"><a href={`${dataObj.s3link}`} download={`${dataObj.title}.${dataObj.file_type}`} onClick={this.downloadable}>DOWNLOAD</a></div>
+                            <div className="the-meat"><a href={`${dataObj.s3link}`} download={`${dataObj.title}.${dataObj.file_type}`} onClick={this.downloadable}>Download</a></div>
                         </li>
                     </ul>
                     <div>{
@@ -321,9 +331,9 @@ class UserData extends Component {
                                 ?
                                 addOrUpdateForm
                                 :
-                                <div>
+                                <div className="button-fit">
                                     <button type="submit" onClick={(event) => this.toggleFormRenderUpdate(event, dataObj.data_id, index)}>Edit</button>
-                                    <button type="submit" onClick={(event) => this.deleteDataInfo(event, dataObj.data_id, dataObj.s3key)}>- Delete -</button>
+                                    <button type="submit" onClick={(event) => this.deleteDataInfo(event, dataObj.data_id, dataObj.s3key)}>Delete</button>
                                 </div>
                             :
                             null}

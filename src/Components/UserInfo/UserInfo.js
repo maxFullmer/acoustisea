@@ -153,7 +153,7 @@ class UserInfo extends Component {
                 </div>
 
                 <div id="bio">
-                    <h2>User Bio: </h2>
+                    {/* <h2>User Bio: </h2> */}
                     <div>{
                         (this.props.user !== null 
                         && this.props.user.user_id === +this.props.match.params.user_id
@@ -161,18 +161,28 @@ class UserInfo extends Component {
                         ?
                             (editBio)
                             ?
-                            <div>
-                                <input type="text" value={this.state.newBio} onChange={(event) => this.handleBioChange(event.target.value)} />
-                                <button type="submit" onClick={this.updateBio}>Confirm Update</button>
-                                <button type="button" onClick={this.cancelBioChange}>Cancel</button>
+                            <div className="bio-div">
+                                <h2>User Bio</h2>
+
+                                <textarea name="newBio" rows="2" cols="35" value={this.state.newBio}
+                                    onChange={event => this.handleBioChange(event.target.value)} 
+                                />
+
+                                <div id="edit-bio-form">
+                                    <button type="submit" onClick={this.updateBio}>Confirm Update</button>
+                                    <button type="button" onClick={this.cancelBioChange}>Cancel</button>
+                                </div>
                             </div>
                             :
-                            <div>
+                            <div className="bio-div">
+                                <h2>User Bio<button id="edit-bio-button" type="button" onClick={this.editBiography}>Edit</button></h2>
                                 <span>{userInfoToDisplay.biography}</span>
-                                <button type="button" onClick={this.editBiography}>Edit</button>
                             </div>
                         :
-                        <span>{userInfoToDisplay.biography}</span>
+                        <div className="bio-div">
+                            <h2>User Bio</h2>
+                            <span>{userInfoToDisplay.biography}</span>
+                        </div>
                         }
                     </div>
                     

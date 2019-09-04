@@ -41,7 +41,7 @@ div {
             .lbl-toggle {
                 display: block;
                 font-size: 1.5em;
-                // text-align: center;
+                text-align: center;
                 padding: 15px;
                 background: black;
                 cursor: pointer;
@@ -195,11 +195,10 @@ div {
     .user-data {
         display: flex;
         flex-direction: column;
-        padding: 20px;
+        padding: 3%;
 
         span {
             font-size: 1.5em;
-            margin: 4px;
         }
     }
 }
