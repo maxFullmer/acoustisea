@@ -161,7 +161,6 @@ class PublicData extends Component {
             )
         })
 
-        console.log('filtered data: ', filteredPublicData)
         return (
             <div>
                 <h1>{headerIsSubtopic}</h1>
