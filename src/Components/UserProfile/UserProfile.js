@@ -16,8 +16,8 @@ class UserProfile extends Component {
 
             <section className="subtopic-nav">
                 <div className="wrap-collapsible">
-                    <input id="collapsible" class="toggle" type="checkbox"/>
-                    <label for="collapsible" class="lbl-toggle">Explore</label>
+                    <input id="collapsible" className="toggle" type="checkbox"/>
+                    <label htmlFor="collapsible" className="lbl-toggle">Explore</label>
 
                     <nav className="collapsible-content">
                         <ul className="content-inner">

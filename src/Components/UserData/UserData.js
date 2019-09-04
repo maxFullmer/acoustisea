@@ -146,25 +146,36 @@ class UserData extends Component {
             null;
 
         // axios call to db
-        axios.put('/api/user_data_form', 
-        {
-            title: dataTitle, 
-            file_type: file_type, 
-            subtopic: subtopic, 
-            dataSummary: dataSummary,
-            data_id: selectedDataInfoId,
-            user_id: user_id
-        })
-        .then(response => {
-            let newDataArray = dataInfoToDisplay.slice();
-            newDataArray[selectedDataInfoMapIndex] = response.data;
+        if (dataTitle && file_type && dataSummary) {
+            axios.put('/api/user_data_form', 
+            {
+                title: dataTitle, 
+                file_type: file_type, 
+                subtopic: subtopic, 
+                dataSummary: dataSummary,
+                data_id: selectedDataInfoId,
+                user_id: user_id
+            })
+            .then(response => {
+                let newDataArray = dataInfoToDisplay.slice();
+                newDataArray[selectedDataInfoMapIndex] = response.data;
 
-            this.setState( 
-                {
+                this.setState({
                     dataInfoToDisplay: newDataArray,
-                    showFormUpdate: false
-                } )
-        })
+                    showFormUpdate: false,
+                    dataTitle: "",
+                    file_type: "",
+                    isMarBio: true,
+                    isVaV: false,
+                    isStrctr: false,
+                    isEnviro: false,
+                    isUnknown: false,
+                    dataSummary: ""
+                })
+            })
+        } else {
+            alert("Please fill in all fields of the form")
+        }
     }
 
     deleteDataInfo = (event, dataId, s3key) => {
@@ -200,19 +211,19 @@ class UserData extends Component {
              (
                 <div >
                     <form>
-                        <p>Title {"*"}:</p>
+                        <p>Title {"*"}</p>
                         <div>
                         <textarea name="dataTitle" rows="1" cols="45" value={this.state.dataTitle}
                             onChange={event => this.textAreaHandler(event)} />    
                         </div>
 
-                        <p>Filename extension (.pdf, .docx, or any image format) {"*"}:</p>
+                        <p>Filename extension (.pdf, .docx, .zip, etc...) {"*"}</p>
                         <div>
                         <textarea name="file_type" rows="1" cols="7" value={this.state.file_type}
                             onChange={event => this.textAreaHandler(event)} />    
                         </div>
                         
-                        <p>Category {"*"}:</p>
+                        <p>Category {"*"}</p>
                         <div id="category-choice">
                             <div>
                                 <label htmlFor="isMarBio">Marine Bioacoustics</label>
@@ -311,8 +322,8 @@ class UserData extends Component {
                                 addOrUpdateForm
                                 :
                                 <div>
-                                    <button type="submit" onClick={(event) => this.toggleFormRenderUpdate(event, dataObj.data_id, index)}>EDIT</button>
-                                    <button type="submit" onClick={(event) => this.deleteDataInfo(event, dataObj.data_id, dataObj.s3key)}>DELETE</button>
+                                    <button type="submit" onClick={(event) => this.toggleFormRenderUpdate(event, dataObj.data_id, index)}>Edit</button>
+                                    <button type="submit" onClick={(event) => this.deleteDataInfo(event, dataObj.data_id, dataObj.s3key)}>- Delete -</button>
                                 </div>
                             :
                             null}
@@ -324,7 +335,6 @@ class UserData extends Component {
         // PUTTING IT ALL TOGETHER
         return (
             <div>
-                <div>{mappedUserData}</div>
                 <div>{
                     (this.props.user !== null 
                     && this.props.user.user_id === +this.props.match.params.user_id
@@ -335,11 +345,12 @@ class UserData extends Component {
                         ?
                         addOrUpdateForm
                         :
-                        <button type="button" onClick={(event) => this.toggleFormRenderAdd(event)} >ADD +</button>}
+                        <button type="button" onClick={(event) => this.toggleFormRenderAdd(event)} >+ Add +</button>}
                     </div>
                     :
                     null}
                 </div>
+                <div>{mappedUserData}</div>
             </div> 
         );
     }
