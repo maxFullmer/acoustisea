@@ -53,13 +53,6 @@
 #bio {
     width: 97%;
 
-    @media (min-width: 500) and (max-width: 599px) {
-        width: 98%;
-    }
-
-    @media (min-width: 600) {
-        width: 100%;
-    }
     h2 {
         margin: 8px;
         font-size: 1.5em;
