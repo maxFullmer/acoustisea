@@ -24,6 +24,7 @@
             border-radius: 25% 25%;
             margin-top: 10px;
             z-index: 98;
+            cursor: pointer;
         }
         
         #camera:hover {
@@ -36,8 +37,45 @@
         #swap-picture {
             margin: 10px;
             width: 80%;
-            background: gray;
+            // background: gray;
             @include centercentercol;
+            justify-content: flex-end;
+            
+            .inputfile {
+                width: 0.1px;
+                height: 0.1px;
+                opacity: 0;
+                overflow: hidden;
+                position: absolute;
+                z-index: -1;
+            }
+
+            .inputfile + label {
+                font-size: 1.2em;
+                // font-weight: 500;
+                color: white;
+                background-color: grey;
+                display: inline-block;
+                align-content: center;
+                text-align: center;
+                padding: 8px;
+                margin: 10px;
+                border-radius: 8px;
+                border: solid $silver;
+            }
+            
+            .inputfile:focus + label,
+            .inputfile + label:hover {
+                background-color: $uavYellow;
+                padding: 8px;
+                margin: 10px;
+                border-radius: 8px;
+                border: solid $silver;
+            }
+
+            .inputfile + label {
+	            cursor: pointer;
+            }
         }
 
         span {
@@ -45,7 +83,6 @@
             min-width: 175px;
             max-width: 225px;
             color: $white;
-            // color: $silver + 50;
         }
     }
 }
@@ -57,6 +94,10 @@
         h2 {
             margin: 8px;
             font-size: 1.5em;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
         }
 
         span {
@@ -81,7 +122,4 @@
 #edit-bio-button {
     width: fit-content;
     font-size: 0.8em;
-    position: absolute;
-    top: 310px;
-    right: 2%;
 }

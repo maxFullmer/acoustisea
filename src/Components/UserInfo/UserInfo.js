@@ -135,8 +135,9 @@ class UserInfo extends Component {
                                 (profileImgClickedOn)
                                 ?
                                 <div id="swap-picture">
-                                    <input type="file" accept="image/*" onChange={this.handleProfilePicture} />
-                                    <button type="submit" onClick={this.submitProfilePicture}>Confirm Update</button>
+                                    <input type="file" id="file" className="inputfile" accept="image/*" onChange={this.handleProfilePicture} />
+                                    <label htmlFor="file">Upload Image</label>
+                                    <button type="submit" onClick={this.submitProfilePicture}>Confirm</button>
                                     <button type="button" onClick={this.cancelProfilePicture}>Cancel</button>
                                 </div>
                                 :

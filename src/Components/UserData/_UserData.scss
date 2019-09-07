@@ -4,7 +4,7 @@
 
 .data-container {
     width: auto;
-    margin: 5px;
+    margin: 10px;
     margin-bottom: 20px;
     color: black;
     ul {
@@ -23,18 +23,33 @@
             width: auto;
             background: orange;
             padding: 8px;
+            font-weight: 1.1em;
+
+            #title {
+                font-style: italic;
+            }
 
             .col-name {
                 margin-bottom: 3px;
+                
             }
 
             .the-meat {
                 border-top: solid 2px black;
+
+                .download-button {
+                    background-color: grey;
+                    padding: 10px;
+                }
+                                
+                .download-button:hover {
+                    background-color: $uavYellow;
+                    padding: 10px;
+                }
+
             }
 
-            .title {
-                border-top: solid 2px $silver;
-            }
+            
         }
     }
 }
@@ -77,6 +92,42 @@ form {
     flex-direction: column;
     height: 125px;
     justify-content: space-between;
+
+    .inputfile {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+
+    .inputfile + label {
+        font-size: 1.2em;
+        // font-weight: 500;
+        color: white;
+        background-color: grey;
+        display: inline-block;
+        align-content: center;
+        text-align: center;
+        padding: 8px;
+        margin: 10px;
+        border-radius: 8px;
+        border: solid $silver;
+    }
+    
+    .inputfile:focus + label,
+    .inputfile + label:hover {
+        background-color: $uavYellow;
+        padding: 8px;
+        margin: 10px;
+        border-radius: 8px;
+        border: solid $silver;
+    }
+
+    .inputfile + label {
+        cursor: pointer;
+    }
 
     div {
         width: 100%;

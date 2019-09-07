@@ -274,8 +274,9 @@ class UserData extends Component {
                             (showFormAdd && !showFormUpdate)
                             ?
                             <div className="button-fit-form-add">
-                                <p>Select your file to upload</p>
-                                <input type="file" onChange={this.handleFileUpload} />
+                                {/* <p>Select your file to upload (up to )</p> */}
+                                <input type="file" className="inputfile" onChange={this.handleFileUpload} />
+                                <label htmlFor="file">Upload File <br/> (max size 0.95 GB)</label>
                                 <div>
                                     <button id="submitadd" type="submit" onClick={(event) => this.postDataInfoAndFile(event)}>Submit</button>
                                     <button id="canceladd" type="button" onClick={(event) => this.toggleFormRenderAdd(event)}>Cancel</button>
@@ -298,8 +299,8 @@ class UserData extends Component {
                 <div key={index} className="data-container">
                     <ul>
                         <li>
-                            <div className="col-name ">Title</div>
-                            <div className="the-meat title">{dataObj.title}</div>
+                            <div id="title" className="col-name">Title</div>
+                            <div id="title" className="the-meat">{dataObj.title}</div>
                         </li>
                         <li>
                             <div className="col-name">File Type</div>
@@ -319,7 +320,7 @@ class UserData extends Component {
                         </li>
                         <li>
                             <div className="col-name">File</div>
-                            <div className="the-meat"><a href={`${dataObj.s3link}`} download={`${dataObj.title}.${dataObj.file_type}`} onClick={this.downloadable}>Download</a></div>
+                            <div className="the-meat"><a className="download-button" href={`${dataObj.s3link}`} download={`${dataObj.title}.${dataObj.file_type}`} onClick={this.downloadable}>Download</a></div>
                         </li>
                     </ul>
                     <div>{
