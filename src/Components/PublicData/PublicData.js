@@ -22,7 +22,7 @@ class PublicData extends Component {
             this.props.getUserSession(response.data)
         })
         //take parsed query with the value of the subtopic from parent props
-        const { subtopic } = this.props;
+        let { subtopic } = this.props;
         //set selected subtopic to database column name that we are sending to backend
         switch(subtopic) {
             case 'marinebioacoustics': {
@@ -147,7 +147,7 @@ class PublicData extends Component {
                         </li>
                         <li>
                             <div className="col-name">File</div>
-                            <div className="the-meat"><a href={`${publicDataObj.s3link}`} download={`${publicDataObj.title}.${publicDataObj.file_type}`} onClick={this.downloadable}>DOWNLOAD</a></div>
+                            <div className="the-meat"><a className="download-button" href={`${publicDataObj.s3link}`} download={`${publicDataObj.title}.${publicDataObj.file_type}`} onClick={this.downloadable}>DOWNLOAD</a></div>
                         </li>
                         <li>
                             <div className="col-name">Contibutor</div>

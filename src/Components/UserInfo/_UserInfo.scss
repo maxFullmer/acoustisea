@@ -1,123 +1,136 @@
 @import '../../_varMixGlobal.scss';
-
-.profile {
-    min-height: 25vh;
-    width: 100%;
-    background: url('https://cdn.pixabay.com/photo/2014/04/04/14/56/background-313418_1280.jpg');
-    background-repeat: no-repeat;
-    background-position: center;
+#userinfo-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    font-size: 1.8em;
-    padding-bottom: 10px;
+    width: 100%;
+    // padding: 10px;
 
-    li {
-        width: 80%;
-        @include centercentercol;
+    .profile {
+        min-height: 25vh;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        font-size: 1.8em;
+        background-color: black;
 
-        img {
-            height: 200px;
-            width: 80%;
-            min-width: 200px;
-            max-width: 300px;
-            border-radius: 25% 25%;
-            margin-top: 10px;
-            z-index: 98;
-            cursor: pointer;
-        }
-        
-        #camera:hover {
-            filter: alpha(opacity=50);
-            opacity: 0.5;
-            background: url('./iconsAndImages/outline_camera_front_white_48dp.png');
-            // z-index: 97;
-        }
-        
-        #swap-picture {
-            margin: 10px;
-            width: 80%;
-            // background: gray;
+        li {
+            width: 100%;
             @include centercentercol;
-            justify-content: flex-end;
-            
-            .inputfile {
-                width: 0.1px;
-                height: 0.1px;
-                opacity: 0;
-                overflow: hidden;
-                position: absolute;
-                z-index: -1;
+
+            .no-pointer {
+                cursor: default;
             }
 
-            .inputfile + label {
-                font-size: 1.2em;
-                // font-weight: 500;
-                color: white;
-                background-color: grey;
-                display: inline-block;
-                align-content: center;
+            img {
+                height: 96px;
+                width: 96px;
+                border-radius: 25% 25%;
+                margin-top: 10px;
+                z-index: 98;
+                cursor: pointer;
+            }
+            
+            #camera:hover {
+                filter: alpha(opacity=50);
+                opacity: 0.5;
+                // background: url('./iconsAndImages/outline_camera_front_white_48dp.png');
+                // z-index: 97;
+            }
+            
+            #swap-picture {
+                margin: 10px;
+                width: 80%;
+                @include centercentercol;
+                justify-content: flex-end;
+                
+                .inputfile {
+                    width: 0.1px;
+                    height: 0.1px;
+                    opacity: 0;
+                    overflow: hidden;
+                    position: absolute;
+                    z-index: -1;
+                }
+
+                .inputfile + label {
+                    font-size: 0.75em;
+                    // font-weight: 500;
+                    color: white;
+                    background-color: grey;
+                    display: inline-block;
+                    align-content: center;
+                    text-align: center;
+                    padding: 8px;
+                    margin: 10px;
+                    border-radius: 8px;
+                    border: solid $silver;
+                }
+                
+                .inputfile:focus + label,
+                .inputfile + label:hover {
+                    background-color: $uavYellow;
+                    padding: 8px;
+                    margin: 10px;
+                    border-radius: 8px;
+                    border: solid $silver;
+                }
+
+                .inputfile + label {
+                    cursor: pointer;
+                }
+
+                button {
+                    font-size: 0.75em;
+                }
+            }
+
+            p {
+                margin: 0 auto;
+                width: fit-content;
+                max-width: 90%;
+                // font-size: 7.5vw;
+                // width: 96px;
+                // text-align: center;
+                // max-width: 100px;
+                color: $white;
+
+                @media (max-width: 500px) {
+                    font-size: 7.5vw;
+                }
+            }
+        }
+    }
+
+    #bio {
+        width: 94%;
+        padding: 3%;
+        background-color: black;
+        .bio-div {
+            h2 {
+                margin: 8px;
+                font-size: 1.5em;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            span {
+                margin: 8px;
+                color: black;
+                background: $silver;
+                @include databorder;
+                padding: 6px;
+                font-family: 'Poppins, sans-serif';
                 text-align: center;
-                padding: 8px;
-                margin: 10px;
-                border-radius: 8px;
-                border: solid $silver;
+                font-style: italic;
+                font-weight: 700;
+                font-size: 1.2em;
             }
-            
-            .inputfile:focus + label,
-            .inputfile + label:hover {
-                background-color: $uavYellow;
-                padding: 8px;
-                margin: 10px;
-                border-radius: 8px;
-                border: solid $silver;
-            }
-
-            .inputfile + label {
-	            cursor: pointer;
-            }
-        }
-
-        span {
-            text-align: center;
-            min-width: 175px;
-            max-width: 225px;
-            color: $white;
         }
     }
 }
 
-#bio {
-    width: 97%;
-
-    .bio-div {
-        h2 {
-            margin: 8px;
-            font-size: 1.5em;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        span {
-            margin: 8px;
-            color: black;
-            background: $silver;
-            @include databorder;
-            padding: 6px;
-            font-family: 'Poppins, sans-serif';
-            text-align: center;
-            font-style: italic;
-            font-weight: 700;
-            font-size: 1.2em;
-        }
-    }
-}
-
-#userinfo-container {
-    @include centercentercol;
-}
 
 #edit-bio-button {
     width: fit-content;

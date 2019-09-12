@@ -274,9 +274,8 @@ class UserData extends Component {
                             (showFormAdd && !showFormUpdate)
                             ?
                             <div className="button-fit-form-add">
-                                {/* <p>Select your file to upload (up to )</p> */}
-                                <input type="file" className="inputfile" onChange={this.handleFileUpload} />
-                                <label htmlFor="file">Upload File <br/> (max size 0.95 GB)</label>
+                                <input type="file" id="post-data-file" className="inputfile" onChange={this.handleFileUpload} />
+                                <label htmlFor="post-data-file">Upload File <br/> (max size 0.95 GB)</label>
                                 <div>
                                     <button id="submitadd" type="submit" onClick={(event) => this.postDataInfoAndFile(event)}>Submit</button>
                                     <button id="canceladd" type="button" onClick={(event) => this.toggleFormRenderAdd(event)}>Cancel</button>

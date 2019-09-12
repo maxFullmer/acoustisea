@@ -1,11 +1,28 @@
 @import '../../_varMixGlobal.scss';
 
+#about {
+    color: $white;
+    position: absolute;
+    top: 60px;
+    z-index: 5;
+    align-self: center;
+    font-size: 18px;
+    text-align: center;
+    height: 10%;
+    padding: 4px;
+
+    @media (min-width: 600px) {
+        font-size: 32px;
+        padding: 8px;
+    }
+}
+
 #dolphinimation {
     width: 100vw;
     height: 64px;
     // border: 1px solid black;
     position: absolute;
-    top: 60px;
+    top: 15vh;
     // animation-name: swim;
     // animation-duration: 2s;
     // animation-iteration-count: infinite;
@@ -21,7 +38,7 @@
     // }
 
     @media (min-width: 600px) {
-        top: 17.5vh;
+        top: 20vh;
     }
 }
 
@@ -29,7 +46,7 @@
     @include centercentercol;
     height: auto;
     position: absolute;
-    top: 17.5vh;
+    top: 22.5vh;
 
     @media (min-width: 600px) {
         display: flex;
@@ -38,17 +55,19 @@
     }
 
     #login-container {
+        background-color: black;
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
         align-items: center;
-        height: 30vh;
+        height: 27.5vh;
         width: 90%;
         @include databorder;
-        margin: 4%;
+        margin: 1%;
 
         @media (min-width: 600px) {
+            margin: 4%;
             height: 35vh;
         }
 
@@ -65,6 +84,7 @@
     }
 
     #register-container {
+        background-color: black;
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
@@ -73,7 +93,7 @@
         height: 35vh;
         width: 90%;
         @include databorder;
-        margin: 4%;
+        margin: 1%;
 
         label {
             color: white;
@@ -85,5 +105,31 @@
             width: 190px;
             position: relative;
         }
+
+        @media (min-width: 600px) {
+            margin: 4%;
+        }
     }
+}
+
+#explore-as-guest {
+    @include subtopicnav;
+    position: absolute;
+    top: 86vh;
+  
+  .subtopic-nav {
+        margin: 0 1%;    
+  }
+
+//   @media (min-width: 400px) {
+//       top: 86vh;
+//   }
+
+  @media (min-width: 500px) {
+      top: 86.25vh;
+  }
+  
+  @media (min-width: 600px) {
+      top: 75vh;
+  }
 }

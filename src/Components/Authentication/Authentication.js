@@ -95,11 +95,17 @@ class Authentication extends Component {
             }
         }, animationCycles * animationFrames * frameInterval)        
     }
+
+    routeHandler = (event) => {
+        this.props.history.push(`/publicdata?subtopic=${event.target.name}`)
+    }
     
     render() {
     const { emailLogin, passLogin, userRegister, passRegister, emailRegister } = this.state;
     return (
         <div>
+            <p id="about">A public, underwater acoustic data file  repository.</p>
+
             <canvas id="dolphinimation">
                 <img id="dolphin-sprite-sheet" src={dolphinSwimRight} alt="sonar-animation" onLoad={this.init}/>
             </canvas>
@@ -135,9 +141,41 @@ class Authentication extends Component {
                     <ToastContainer autoClose={2750}/>
                 </form>
             </div>
+
+            <div id="explore-as-guest">
+                <section className="subtopic-nav">
+                    <div className="wrap-collapsible">
+                        <input id="collapsible" className="toggle" type="checkbox"/>
+                        <label htmlFor="collapsible" className="lbl-toggle">Explore as guest</label>
+
+                        <nav className="collapsible-content">
+                            <ul className="content-inner">
+                                <li id="marbio">
+                                    <button type="button" name="marinebioacoustics"
+                                    onClick={(event) => this.routeHandler(event)}>Marine Bioacoustics</button>
+                                </li>
+                                <li id="vv">
+                                    <button type="button" name="vesselsandvehicles"
+                                    onClick={(event) => this.routeHandler(event)}>Vessels {"&"} Vehicles</button>
+                                </li>
+                                <li id="strctr">
+                                    <button type="button" name="structures"
+                                    onClick={(event) => this.routeHandler(event)}>Structures</button>
+                                </li>
+                                <li id="environ"> 
+                                    <button type="button" name="environmental"
+                                    onClick={(event) => this.routeHandler(event)}>Environmental</button>
+                                </li>
+                                <li id="unknown">
+                                    <button type="button" name="unknown"
+                                    onClick={(event) => this.routeHandler(event)}>Unknown</button>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </section>
+            </div>
         </div>
-        
-        
     )
     }
 }

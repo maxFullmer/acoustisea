@@ -10,14 +10,10 @@ class UserProfile extends Component {
     render() {
     return (
         <div>
-            <section className="user-info"> 
-                <UserInfo />
-            </section>
-
             <section className="subtopic-nav">
                 <div className="wrap-collapsible">
                     <input id="collapsible" className="toggle" type="checkbox"/>
-                    <label htmlFor="collapsible" className="lbl-toggle">Explore</label>
+                    <label htmlFor="collapsible" className="lbl-toggle">Repositories</label>
 
                     <nav className="collapsible-content">
                         <ul className="content-inner">
@@ -44,6 +40,10 @@ class UserProfile extends Component {
                         </ul>
                     </nav>
                 </div>
+            </section>
+
+            <section className="user-info"> 
+                <UserInfo />
             </section>   
 
             <section className="user-data">

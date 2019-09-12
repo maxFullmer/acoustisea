@@ -135,8 +135,8 @@ class UserInfo extends Component {
                                 (profileImgClickedOn)
                                 ?
                                 <div id="swap-picture">
-                                    <input type="file" id="file" className="inputfile" accept="image/*" onChange={this.handleProfilePicture} />
-                                    <label htmlFor="file">Upload Image</label>
+                                    <input type="file" id="update-pic" className="inputfile" accept="image/*" onChange={this.handleProfilePicture} />
+                                    <label htmlFor="update-pic">Upload Image</label>
                                     <button type="submit" onClick={this.submitProfilePicture}>Confirm</button>
                                     <button type="button" onClick={this.cancelProfilePicture}>Cancel</button>
                                 </div>
@@ -144,17 +144,16 @@ class UserInfo extends Component {
                                 null
                             }
                         </li>
-                        <li><span>{userInfoToDisplay.username}</span></li>
+                        <li><p>{userInfoToDisplay.username}</p></li>
                     </ul>
                     :
                     <ul className="profile">
-                        <li><img src={userInfoToDisplay.profile_picture} alt="Profile"/></li>
-                        <li><span>{userInfoToDisplay.username}</span></li>
+                        <li><img className="no-pointer" src={userInfoToDisplay.profile_picture} alt="Profile"/></li>
+                        <li><p>{userInfoToDisplay.username}</p></li>
                     </ul>}
                 </div>
 
                 <div id="bio">
-                    {/* <h2>User Bio: </h2> */}
                     <div>{
                         (this.props.user !== null 
                         && this.props.user.user_id === +this.props.match.params.user_id
@@ -163,7 +162,7 @@ class UserInfo extends Component {
                             (editBio)
                             ?
                             <div className="bio-div">
-                                <h2>User Bio</h2>
+                                <h2>Bio</h2>
 
                                 <textarea name="newBio" rows="2" cols="35" value={this.state.newBio}
                                     onChange={event => this.handleBioChange(event.target.value)} 
@@ -176,17 +175,16 @@ class UserInfo extends Component {
                             </div>
                             :
                             <div className="bio-div">
-                                <h2>User Bio<button id="edit-bio-button" type="button" onClick={this.editBiography}>Edit</button></h2>
+                                <h2>Bio<button id="edit-bio-button" type="button" onClick={this.editBiography}>Edit</button></h2>
                                 <span>{userInfoToDisplay.biography}</span>
                             </div>
                         :
                         <div className="bio-div">
-                            <h2>User Bio</h2>
+                            <h2>Bio</h2>
                             <span>{userInfoToDisplay.biography}</span>
                         </div>
                         }
                     </div>
-                    
                 </div>
             </div>
         );

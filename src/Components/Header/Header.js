@@ -36,8 +36,10 @@ class Header extends Component {
             (!this.props.user) 
             ?
                 <header id="no-user">
-                    <img onClick={this.siteHome} src={logo} alt="trident.png" height="32px" width="32px" />
-                    <span>ACOUSTISEA</span>
+                    <div onClick={this.siteHome}>
+                        <img src={logo} alt="trident.png" height="32px" width="32px"/>
+                        <span>ACOUSTISEA</span>
+                    </div>
                 </header>
             : 
                 <header id="user">

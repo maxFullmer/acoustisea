@@ -1,5 +1,13 @@
 @import '../../_varMixGlobal.scss';
 
+.nav-anchor {
+    background: none;
+    border: none;
+}
+
+.nav-anchor:hover {
+    background: none;
+}
 
 #marinebioacoustics {
     background-image: url('./iconsAndImages/marinebio.jpg');

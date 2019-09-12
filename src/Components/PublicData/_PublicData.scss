@@ -12,7 +12,15 @@ h1 {
     flex-direction: row;
     justify-content: flex-start;
     
-    input { margin-left: 10px;}
+    input { 
+        margin-left: 10px;
+        background-color: grey;
+        
+    }
+
+    input::placeholder {
+        color: black;
+    }
 }
 
 // CLASS ALREADY DEFINED IN _USERDATA.SCSS

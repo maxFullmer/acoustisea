@@ -13,7 +13,8 @@
         flex-wrap: wrap;
         border: solid $uavYellow 4px;
         border-radius: 8px;
-        background: orange;
+        // background: orange;
+        background: $silver;
 
         @media (min-width: 600px) {
             justify-content: space-between;
@@ -21,7 +22,8 @@
 
         li {
             width: auto;
-            background: orange;
+            // background: orange;
+            // background: $silver;
             padding: 8px;
             font-weight: 1.1em;
 
@@ -38,12 +40,15 @@
                 border-top: solid 2px black;
 
                 .download-button {
-                    background-color: grey;
+                    // background-color: grey;
+                    background-color: black;
+                    border: solid 2px grey;
                     padding: 10px;
                 }
                                 
                 .download-button:hover {
-                    background-color: $uavYellow;
+                    // background-color: $uavYellow;
+                    color: $uavYellow;
                     padding: 10px;
                 }
 
@@ -56,6 +61,7 @@
 
 form {
     @include databorder;
+    background-color: black;
     padding: 4%;
     p {
         color: $silver;
@@ -105,7 +111,7 @@ form {
     .inputfile + label {
         font-size: 1.2em;
         // font-weight: 500;
-        color: white;
+        color: $white;
         background-color: grey;
         display: inline-block;
         align-content: center;

@@ -8,13 +8,22 @@
     padding: 5px;
     display: flex;
     flex-direction: row;
+    justify-content: center;
     align-items: center;
     color: black;
+    cursor: pointer;
+
+    img {
+        align-self: center;
+    }
+
+    span {
+        align-self: center;
+    }
     
     font-family: 'Poppins, sans-serif';
     font-style: italic;
     font-weight: 600;
-    justify-content: flex-start;
     font-size: 0.8em;
 
     @media (min-width: 600px) {
