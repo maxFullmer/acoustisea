@@ -104,7 +104,7 @@ class Authentication extends Component {
     const { emailLogin, passLogin, userRegister, passRegister, emailRegister } = this.state;
     return (
         <div>
-            <p id="about">A public, underwater acoustic data file  repository.</p>
+            <p id="about">A public, underwater acoustic data file repository.</p>
 
             <canvas id="dolphinimation">
                 <img id="dolphin-sprite-sheet" src={dolphinSwimRight} alt="sonar-animation" onLoad={this.init}/>

@@ -126,8 +126,8 @@ class PublicData extends Component {
                 <div key={index} className="data-container">
                     <ul>
                         <li>
-                            <div className="col-name">Title</div>
-                            <div className="the-meat title">{publicDataObj.title}</div>
+                            <div id="title" className="col-name">Title</div>
+                            <div id="title" className="the-meat title">{publicDataObj.title}</div>
                         </li>
                         <li>
                             <div className="col-name">File Type</div>
